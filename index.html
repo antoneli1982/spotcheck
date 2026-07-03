@@ -297,9 +297,16 @@
       cursor: pointer;
       transition: .18s ease;
       width: 100%;
-      height: 43px;
+      min-height: 48px;
       margin-top: 19px;
       box-shadow: 0 0 18px rgba(30, 134, 255, .16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: normal;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
     }
 
     .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
@@ -335,6 +342,33 @@
       min-height: 112px;
       position: relative;
       overflow: hidden;
+    }
+
+    .kpi.alert {
+      border-color: rgba(255, 125, 125, .42);
+      background: linear-gradient(180deg, rgba(50, 12, 20, .92), rgba(25, 8, 16, .98));
+      box-shadow: 0 0 0 1px rgba(255, 125, 125, .18), 0 0 26px rgba(255, 94, 94, .14), inset 0 0 28px rgba(90, 18, 18, .22);
+    }
+
+    .kpi.alert::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 125, 125, .12), transparent 42%, rgba(243, 201, 88, .08));
+      pointer-events: none;
+    }
+
+    .kpi.alert .label {
+      color: #ffd3d3;
+    }
+
+    .kpi.alert .value {
+      color: #fff5f5;
+      text-shadow: 0 0 16px rgba(255, 125, 125, .18);
+    }
+
+    .kpi.alert .hint {
+      color: #f0aaaa;
     }
 
     .kpi::after {
@@ -453,8 +487,9 @@
     .table-actions {
       padding: 12px;
       display: grid;
-      grid-template-columns: 1fr 180px 180px;
+      grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(180px, 220px));
       gap: 10px;
+      align-items: stretch;
       border-bottom: 1px solid rgba(82, 164, 255, .12);
     }
 
@@ -492,6 +527,48 @@
     td { color: var(--text-soft); }
     td strong { color: #fff; }
     td.num, th.num { text-align: right; }
+
+    .divergence-title {
+      color: #ffd0d0;
+      text-shadow: 0 0 12px rgba(255, 125, 125, .18);
+    }
+
+    .divergence-subtitle {
+      color: #ffb4b4;
+    }
+
+    .divergence-table th:nth-child(6),
+    .divergence-table td:nth-child(6),
+    .divergence-table th:nth-child(7),
+    .divergence-table td:nth-child(7),
+    .divergence-table th:nth-child(8),
+    .divergence-table td:nth-child(8) {
+      background: rgba(95, 18, 26, .50);
+      color: #ffe4e4;
+    }
+
+    .local-divergence-table th:nth-child(4),
+    .local-divergence-table td:nth-child(4),
+    .local-divergence-table th:nth-child(5),
+    .local-divergence-table td:nth-child(5) {
+      background: rgba(95, 18, 26, .50);
+      color: #ffe4e4;
+    }
+
+    .divergence-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 125, 125, .12);
+      border: 1px solid rgba(255, 125, 125, .24);
+      color: #ffd1d1;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
     .tag { display: inline-block; padding: 4px 8px; border-radius: 999px; background: rgba(26, 104, 228, .18); color: #d9ebff; font-weight: 800; font-size: 11px; border: 1px solid rgba(26, 104, 228, .22); }
     .tag.warn { background: rgba(243, 201, 88, .14); color: #ffe29d; border-color: rgba(243, 201, 88, .28); }
     .tag.danger { background: rgba(255, 125, 125, .12); color: #ffc4c4; border-color: rgba(255, 125, 125, .24); }
@@ -569,12 +646,15 @@
     @media (max-width: 1100px) {
       .topbar, .grid, .grid.equal, .footer-grid { grid-template-columns: 1fr; }
       .filters { grid-template-columns: repeat(2, 1fr); }
-      .table-actions { grid-template-columns: 1fr; }
+      .table-actions { grid-template-columns: 1fr 1fr; }
+      .table-actions > :first-child { grid-column: 1 / -1; }
       .panel-tools { width: 128px; }
       .btn { margin-top: 0; }
     }
 
     @media (max-width: 760px) {
+      .table-actions { grid-template-columns: 1fr; }
+      .table-actions > :first-child { grid-column: auto; }
       .page { padding: 14px; }
       .kpis { grid-template-columns: repeat(2, 1fr); }
       .filters { grid-template-columns: 1fr; }
@@ -642,9 +722,9 @@
       <div class="kpi corner-decor"><div class="label">Spot checks realizados</div><div class="value" id="kpiTotal">0</div><div class="hint" id="periodText">Período: Global</div></div>
       <div class="kpi corner-decor"><div class="label">Locais avaliados</div><div class="value" id="kpiLocais">0</div><div class="hint">Quantidade de áreas com registros</div></div>
       <div class="kpi corner-decor"><div class="label">Fornecedores avaliados</div><div class="value" id="kpiFornecedores">0</div><div class="hint">Com base no código do fornecedor</div></div>
-      <div class="kpi corner-decor"><div class="label">Ocorrências com divergência</div><div class="value" id="kpiDivChecks">0</div><div class="hint">Divergência informada ou NF diferente do físico</div></div>
-      <div class="kpi corner-decor"><div class="label">Unidades divergentes</div><div class="value" id="kpiDivUnits">0</div><div class="hint">Soma da divergência ou diferença NF x físico</div></div>
-      <div class="kpi corner-decor"><div class="label">Taxa de divergência</div><div class="value" id="kpiDivRate">0%</div><div class="hint">Ocorrências divergentes / total de checks</div></div>
+      <div class="kpi alert corner-decor"><div class="label">Ocorrências com divergência</div><div class="value" id="kpiDivChecks">0</div><div class="hint">Divergência informada ou NF diferente do físico</div></div>
+      <div class="kpi alert corner-decor"><div class="label">Unidades divergentes</div><div class="value" id="kpiDivUnits">0</div><div class="hint">Soma da divergência ou diferença NF x físico</div></div>
+      <div class="kpi alert corner-decor"><div class="label">Taxa de divergência</div><div class="value" id="kpiDivRate">0%</div><div class="hint">Ocorrências divergentes / total de checks</div></div>
     </section>
 
     <section class="grid">
@@ -673,10 +753,10 @@
       <article class="panel corner-decor">
         <div class="panel-header">
           <div></div>
-          <h2 class="panel-title">Quantidade de divergências por local</h2>
+          <h2 class="panel-title divergence-title">Quantidade de divergências por local</h2>
           <div class="panel-tools"><select data-chart-palette="divLocal"><option value="warm">Quente</option><option value="red">Vermelho</option><option value="blue">Azul</option><option value="mixed">Misto</option></select></div>
         </div>
-        <p class="panel-subtitle" id="subtitleDivLocal">Período avaliado: Global</p>
+        <p class="panel-subtitle divergence-subtitle" id="subtitleDivLocal">Período avaliado: Global</p>
         <div class="chart-wrap" id="chartDivLocal"><div class="empty">Importe o Excel para visualizar.</div></div>
       </article>
 
@@ -692,14 +772,14 @@
     </section>
 
     <section class="table-panel corner-decor">
-      <div class="table-title">Resumo por fornecedor: absoluto, relativo e divergências</div>
+      <div class="table-title">Resumo por fornecedor: absoluto, relativo e divergências <span class="divergence-chip">Divergência em destaque</span></div>
       <div class="table-actions">
         <input id="supplierTableSearch" type="search" placeholder="Pesquisar fornecedor, código ou local..." />
         <button class="btn secondary" id="exportSupplierCsv" style="margin-top:0;">Exportar fornecedores</button>
         <button class="btn secondary" id="exportBaseCsv" style="margin-top:0;">Exportar base tratada</button>
       </div>
       <div class="table-scroll">
-        <table id="supplierTable">
+        <table id="supplierTable" class="divergence-table">
           <thead>
             <tr>
               <th class="num">#</th>
@@ -722,7 +802,7 @@
     <section class="table-panel corner-decor">
       <div class="table-title">Resumo por local</div>
       <div class="table-scroll" style="max-height:260px;">
-        <table id="localTable">
+        <table id="localTable" class="local-divergence-table">
           <thead>
             <tr>
               <th>Local</th>
