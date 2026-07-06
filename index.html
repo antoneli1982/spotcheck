@@ -15,6 +15,16 @@
 .app{min-height:100vh;padding:18px;display:grid;grid-template-rows:auto auto 1fr;gap:14px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;background:linear-gradient(135deg,#0c2038,#07111f);border:1px solid var(--line);border-radius:22px;padding:18px 20px;box-shadow:0 18px 55px #0008}.brand h1{font-size:clamp(22px,3vw,36px);margin:0 0 6px}.brand p{margin:0;color:var(--muted)}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn,.fileLabel{border:1px solid #2c5280;background:#12365b;color:var(--text);padding:11px 14px;border-radius:14px;cursor:pointer;font-weight:700}.fileLabel input{display:none}.btn:hover,.fileLabel:hover{background:#174a7f}.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.filters select,.filters input{width:100%;background:#0b192b;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:12px;outline:none}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.kpi{background:linear-gradient(180deg,var(--panel),#081527);border:1px solid var(--line);border-radius:20px;padding:15px;position:relative;overflow:hidden}.kpi:after{content:"";position:absolute;inset:auto -30px -50px auto;width:120px;height:120px;background:var(--glow,var(--blue));filter:blur(60px);opacity:.25}.kpi span{display:block;color:var(--muted);font-size:13px}.kpi b{display:block;font-size:clamp(24px,3vw,38px);margin-top:8px}.dash{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;min-height:0}.panel{background:linear-gradient(180deg,var(--panel),#081527);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 14px 45px #0007;min-width:0}.panel h2{margin:0 0 4px;font-size:18px}.panel .sub{margin:0 0 10px;color:var(--muted);font-size:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chart{height:270px}.wide .chart{height:320px} svg{width:100%;height:100%;overflow:visible}.bar{cursor:pointer;transition:.18s}.bar:hover{filter:brightness(1.25);transform:translateY(-2px)}.axis,.label{fill:#9db4d1;font-size:11px}.tick{stroke:#243f61;stroke-width:1}.line{fill:none;stroke-width:3}.dot{cursor:pointer}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:12px}.lg{display:inline-flex;gap:6px;align-items:center}.sw{width:10px;height:10px;border-radius:3px}.side{display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0}.detail{min-height:0;display:flex;flex-direction:column}.detailBox{border:1px solid var(--line);background:#081527;border-radius:18px;padding:14px;margin-bottom:12px}.detailTitle{font-weight:800;font-size:18px;margin-bottom:6px}.detailMeta{color:var(--muted);font-size:13px}.detailStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.detailStat{border:1px solid var(--line);background:#10243d;border-radius:14px;padding:9px}.detailStat span{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.detailStat b{display:block;font-size:16px;color:var(--text)}.tableWrap{overflow:auto;min-height:230px;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:10px 11px;border-bottom:1px solid #1d3554;text-align:left;font-size:13px}th{position:sticky;top:0;background:#10243d;color:#cfe3ff;z-index:1}td{color:#e7f1ff}.danger{color:var(--red);font-weight:800}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#173b63;color:#cfe6ff;font-size:12px}.empty{padding:24px;color:var(--muted);text-align:center}.footer{color:var(--muted);font-size:12px;text-align:right;margin-top:8px}@media(max-width:1100px){.dash,.grid2{grid-template-columns:1fr}.filters,.kpis{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}}@media(max-width:680px){.app{padding:10px}.filters,.kpis{grid-template-columns:1fr}.chart{height:240px}.panel{padding:12px}.detailStats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 
+.importMode{border:1px solid #2c5280;background:#0b192b;color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;font-weight:800;max-width:250px;outline:none}
+.importMode:focus{box-shadow:0 0 0 3px rgba(71,163,255,.25)}
+.btnDanger{border-color:#8a2638;background:#5c1224;color:#fff}
+.btnDanger:hover{background:#7a1930;border-color:#b42344}
+html[data-theme="light"] .importMode{background:#ffffff;border-color:#b8cbe0;color:#172334}
+html[data-theme="light"] .importMode:focus{box-shadow:0 0 0 3px #1565c021}
+html[data-theme="light"] .btnDanger{background:#fff0f3;border-color:#d48a98;color:#8a1d32}
+html[data-theme="light"] .btnDanger:hover{background:#ffe3e9;border-color:#c86174}
+
+
 /* Alternância de tema: escuro original + claro de alto contraste */
 .themeSwitch{display:inline-flex;gap:6px;align-items:center;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(8,21,39,.75)}
 .themeBtn{border:1px solid transparent;background:transparent;color:var(--text);width:38px;height:34px;border-radius:999px;cursor:pointer;font-size:16px;font-weight:900;display:grid;place-items:center;line-height:1}
@@ -136,11 +146,114 @@ html[data-theme="light"] .chartControls select,html[data-theme="light"] .chartCo
 @media(max-width:780px){.chartControls{grid-template-columns:1fr}}
 
 
+/* Paginação e ordenação da tabela importada */
+.tableTools{display:grid;grid-template-columns:minmax(220px,1.2fr) minmax(150px,.7fr) minmax(320px,1.5fr);gap:10px;align-items:end;margin:12px 0 10px}
+.tableTools label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:700}
+.tableTools select{width:100%;background:#0b192b;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:10px 12px;outline:none}
+.tablePager{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.tableBtn{padding:9px 11px;border-radius:12px;font-size:12px;line-height:1}
+.tableBtn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.35)}
+.pageInfo{color:var(--muted);font-size:12px;font-weight:800;min-width:116px;text-align:center}
+.tableFootTools{margin-top:10px;display:flex;justify-content:flex-end}
+html[data-theme="light"] .tableTools select{background:#ffffff;border-color:#c8d6e5;color:var(--text)}
+.pdfExportPaper .tableTools,.pdfExportPaper .tableFootTools{display:none!important}
+@media(max-width:900px){.tableTools{grid-template-columns:1fr}.tablePager,.tableFootTools{justify-content:flex-start}.pageInfo{text-align:left}}
+
+
+/* Controles visíveis da tabela importada */
+.tableTools{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:12px 0 10px;padding:12px;border:1px solid var(--line);border-radius:18px;background:#0b192b}
+.tableToolsMain{display:grid;grid-template-columns:minmax(190px,240px) minmax(220px,1fr);gap:10px;flex:1;min-width:min(520px,100%)}
+.tableTools label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:800}
+.tableTools select,.tableTools input{width:100%;background:#07111f;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:10px 12px;outline:none}
+.tablePager{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:700}
+.tablePagerBottom{margin-top:10px}
+.pageBtn{border:1px solid #2c5280;background:#12365b;color:var(--text);padding:9px 11px;border-radius:12px;cursor:pointer;font-weight:800;line-height:1}
+.pageBtn:hover:not(:disabled){background:#174a7f}
+.pageBtn:disabled{opacity:.45;cursor:not-allowed}
+.tablePageStatus{min-width:132px;text-align:center;color:var(--text);font-weight:900}
+.tablePageInfo{color:var(--muted);font-size:12px;margin:2px 0 8px;line-height:1.4}
+.pdfExportPaper .tableTools,.pdfExportPaper .tablePagerBottom,.pdfExportPaper .tablePageInfo{display:none!important}
+html[data-theme="light"] .tableTools{background:#f7fbff;border-color:#d7e2ee}
+html[data-theme="light"] .tableTools select,html[data-theme="light"] .tableTools input{background:#ffffff;border-color:#c8d6e5;color:#172334}
+html[data-theme="light"] .pageBtn{background:#ffffff;border-color:#b8cbe0;color:#172334}
+html[data-theme="light"] .pageBtn:hover:not(:disabled){background:#e7f0fa}
+html[data-theme="light"] .tablePageStatus{color:#172334}
+@media(max-width:780px){.tableTools{align-items:stretch}.tableToolsMain{grid-template-columns:1fr;min-width:100%}.tablePager{justify-content:flex-start}.tablePageStatus{text-align:left;min-width:100%}}
+
+
+
+/* Ajustes finais: paginação visível e tabela ordenável */
+.tableTools{display:flex!important;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:12px 0 10px;padding:14px;border:1px solid var(--line);border-radius:18px;background:#0b192b;position:relative;z-index:2}
+.tableToolsMain{display:grid;grid-template-columns:minmax(170px,220px) minmax(170px,220px) minmax(130px,170px);gap:10px;flex:1;min-width:min(620px,100%)}
+.tableTools label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:800}
+.tableTools select,.tableTools input{width:100%;background:#07111f;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:10px 12px;outline:none}
+.tablePager{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:700}
+.tablePagerBottom{margin-top:10px}
+.pageBtn{border:1px solid #2c5280;background:#12365b;color:var(--text);padding:9px 11px;border-radius:12px;cursor:pointer;font-weight:800;line-height:1}
+.pageBtn:hover:not(:disabled){background:#174a7f}
+.pageBtn:disabled{opacity:.45;cursor:not-allowed}
+.tablePageStatus{min-width:132px;text-align:center;color:var(--text);font-weight:900;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081527}
+.tablePageInfo{color:var(--muted);font-size:12px;margin:2px 0 8px;line-height:1.4}
+html[data-theme="light"] .tableTools{background:#f7fbff;border-color:#d7e2ee}
+html[data-theme="light"] .tableTools select,html[data-theme="light"] .tableTools input{background:#ffffff;border-color:#c8d6e5;color:#172334}
+html[data-theme="light"] .pageBtn{background:#ffffff;border-color:#b8cbe0;color:#172334}
+html[data-theme="light"] .pageBtn:hover:not(:disabled){background:#e7f0fa}
+html[data-theme="light"] .tablePageStatus{background:#edf4fb;color:#172334;border-color:#c8d6e5}
+.pdfExportPaper .tableTools,.pdfExportPaper .tableFootTools,.pdfExportPaper .tablePageInfo{display:none!important}
+@media(max-width:780px){.tableTools{align-items:stretch}.tableToolsMain{grid-template-columns:1fr;min-width:100%}.tablePager{justify-content:flex-start}.tablePageStatus{text-align:left;min-width:100%}}
+
+/* Controles da tabela: paginação sempre visível */
+.tablePagerLabel{color:var(--muted);font-size:12px;font-weight:900;margin-right:2px;white-space:nowrap}
+.tableBtn{min-width:86px;text-align:center}
+.tableTools .tablePager{padding:8px 10px;border:1px solid var(--line);border-radius:14px;background:rgba(7,17,31,.55)}
+.tableFootTools{justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+html[data-theme="light"] .tableTools .tablePager{background:#ffffff;border-color:#d7e2ee}
+@media(max-width:780px){.tableBtn{min-width:auto;flex:1}.tablePagerLabel{width:100%;margin-bottom:2px}.tableTools .tablePager{width:100%;justify-content:flex-start}}
+
+
+/* Organização final da tabela importada: datas, paginação e controles visíveis */
+.tableSectionHead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:8px}
+.jumpTableBtn{display:inline-flex;align-items:center;justify-content:center;border:1px solid #2c5280;background:#12365b;color:var(--text);text-decoration:none;padding:9px 12px;border-radius:12px;font-size:12px;font-weight:900;white-space:nowrap}
+.jumpTableBtn:hover{background:#174a7f}
+.tableDateSummary{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:10px;margin:10px 0 12px}
+.tableDateCard{border:1px solid var(--line);background:#081527;border-radius:16px;padding:12px;min-width:0}
+.tableDateCard span{display:block;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:5px}
+.tableDateCard b{display:block;color:var(--text);font-size:18px;line-height:1.15;overflow-wrap:anywhere}
+.tableDateCard small{display:block;color:var(--muted);font-size:11px;line-height:1.3;margin-top:5px}
+.tableTools{display:flex!important;justify-content:space-between;gap:12px;align-items:stretch;flex-wrap:wrap;margin:12px 0 10px;padding:14px;border:1px solid var(--line);border-radius:18px;background:#0b192b;position:relative;z-index:2}
+.tableToolsTitle{display:flex;flex-direction:column;gap:4px;min-width:210px;max-width:320px;color:var(--muted);font-size:12px;line-height:1.35}
+.tableToolsTitle b{color:var(--text);font-size:14px}
+.tableToolsMain{display:grid!important;grid-template-columns:minmax(190px,250px) minmax(160px,190px) minmax(130px,160px);gap:10px;flex:1;min-width:min(620px,100%)}
+.tableTools label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:900}
+.tableTools select,.tableTools input{width:100%;background:#07111f;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:10px 12px;outline:none;font-weight:800}
+.tablePager{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:800;padding:8px 10px;border:1px solid var(--line);border-radius:14px;background:rgba(7,17,31,.55)}
+.tablePagerLabel{color:var(--muted);font-size:12px;font-weight:900;margin-right:2px;white-space:nowrap}
+.pageBtn{border:1px solid #2c5280;background:#12365b;color:var(--text);padding:9px 11px;border-radius:12px;cursor:pointer;font-weight:900;line-height:1;min-width:86px;text-align:center}
+.pageBtn:hover:not(:disabled){background:#174a7f}
+.pageBtn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.35)}
+.tablePageStatus{min-width:132px;text-align:center;color:var(--text);font-weight:900;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081527}
+.tablePageInfo{color:var(--muted);font-size:12px;margin:4px 0 10px;line-height:1.45;font-weight:800}
+.tableBottomArea{margin-top:12px;padding-top:2px;scroll-margin-top:18px}
+.tableToolsBottom{margin-top:8px;box-shadow:0 -10px 28px rgba(0,0,0,.14)}
+.tableDateSummaryBottom{margin-top:0}
+.pdfExportPaper .tableTools,.pdfExportPaper .tableBottomArea,.pdfExportPaper .tableDateSummary,.pdfExportPaper .tablePageInfo,.pdfExportPaper .jumpTableBtn{display:none!important}
+html[data-theme="light"] .jumpTableBtn{background:#ffffff;border-color:#b8cbe0;color:#172334}
+html[data-theme="light"] .jumpTableBtn:hover{background:#e7f0fa}
+html[data-theme="light"] .tableDateCard{background:#f7fbff;border-color:#d7e2ee}
+html[data-theme="light"] .tableTools{background:#f7fbff;border-color:#d7e2ee}
+html[data-theme="light"] .tableTools select,html[data-theme="light"] .tableTools input{background:#ffffff;border-color:#c8d6e5;color:#172334}
+html[data-theme="light"] .tablePager{background:#ffffff;border-color:#d7e2ee}
+html[data-theme="light"] .pageBtn{background:#ffffff;border-color:#b8cbe0;color:#172334}
+html[data-theme="light"] .pageBtn:hover:not(:disabled){background:#e7f0fa}
+html[data-theme="light"] .tablePageStatus{background:#edf4fb;color:#172334;border-color:#c8d6e5}
+@media(max-width:1000px){.tableDateSummary{grid-template-columns:repeat(2,minmax(160px,1fr))}.tableSectionHead{flex-direction:column}.jumpTableBtn{width:100%}.tableToolsTitle{max-width:none;width:100%}.tablePager{width:100%;justify-content:flex-start}}
+@media(max-width:780px){.tableDateSummary{grid-template-columns:1fr}.tableTools{align-items:stretch}.tableToolsMain{grid-template-columns:1fr!important;min-width:100%}.tableBtn,.pageBtn{min-width:auto;flex:1}.tablePagerLabel{width:100%;margin-bottom:2px}.tablePageStatus{text-align:left;min-width:100%}}
+
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="top"><div class="brand"><h1>Dashboard Spot Check EA211</h1><p>Tela única com gráficos clicáveis, detalhe por fornecedor, local, peça, NF e dados importados.</p></div><div class="actions"><div class="themeSwitch" title="Alternar tema"><button class="themeBtn" type="button" data-theme-set="light" aria-label="Tela clara">☀️</button><button class="themeBtn" type="button" data-theme-set="dark" aria-label="Tela escura">🌙</button></div><button class="btn" id="centralBtn" type="button">Central de Dashboards</button><button class="btn" id="infoBtn" type="button">Informações gerais</button><label class="fileLabel">Importar Excel<input type="file" id="fileInput" accept=".xlsx,.xls,.xlsb,.csv" /></label><button class="btn" id="clearBtn" type="button">Limpar filtros</button><div class="pdfTools" aria-label="Exportação em PDF"><button class="btn btnPdf" id="pdfGlobalBtn" type="button">PDF global</button><select id="pdfPageSelect" class="pdfSelect" aria-label="Escolher página para exportar"><option value="resumo">Página: resumo</option><option value="kd">Página: KD mensal</option><option value="fornecedores">Página: fornecedores e locais</option><option value="analise">Página: análise dos dados</option><option value="tabela">Página: tabela completa</option></select><button class="btn btnPdf" id="pdfPageBtn" type="button">PDF por página</button><span id="pdfStatus" class="pdfStatus" aria-live="polite"></span></div></div></header>
+  <header class="top"><div class="brand"><h1>Dashboard Spot Check EA211</h1><p>Tela única com gráficos clicáveis, detalhe por fornecedor, local, peça, NF e dados importados.</p></div><div class="actions"><div class="themeSwitch" title="Alternar tema"><button class="themeBtn" type="button" data-theme-set="light" aria-label="Tela clara">☀️</button><button class="themeBtn" type="button" data-theme-set="dark" aria-label="Tela escura">🌙</button></div><button class="btn" id="centralBtn" type="button">Central de Dashboards</button><button class="btn" id="infoBtn" type="button">Informações gerais</button><label class="fileLabel">Importar Excel<input type="file" id="fileInput" accept=".xlsx,.xls,.xlsb,.csv" /></label><select id="importMode" class="importMode" title="Como tratar informações repetidas ao importar" aria-label="Tratamento de informações repetidas ao importar"><option value="mergeUpdate">Repetidos: substituir</option><option value="mergeIgnore">Repetidos: excluir/ignorar</option><option value="replaceAll">Substituir tudo pela planilha</option></select><button class="btn" id="clearBtn" type="button">Limpar filtros</button><button class="btn btnDanger" id="deleteAllBtn" type="button">Excluir todas as informações</button><div class="pdfTools" aria-label="Exportação em PDF"><button class="btn btnPdf" id="pdfGlobalBtn" type="button">PDF global</button><select id="pdfPageSelect" class="pdfSelect" aria-label="Escolher página para exportar"><option value="resumo">Página: resumo</option><option value="kd">Página: KD mensal</option><option value="fornecedores">Página: fornecedores e locais</option><option value="analise">Página: análise dos dados</option><option value="tabela">Página: tabela completa</option></select><button class="btn btnPdf" id="pdfPageBtn" type="button">PDF por página</button><span id="pdfStatus" class="pdfStatus" aria-live="polite"></span></div></div></header>
   <section class="filters">
     <select id="setor" aria-label="Filtrar local/setor"></select>
     <select id="fornecedor" aria-label="Filtrar fornecedor"></select>
@@ -208,9 +321,106 @@ html[data-theme="light"] .chartControls select,html[data-theme="light"] .chartCo
     </section>
 
     <section class="panel detail dashboardRow excelDataPanel" id="excelDataPanel">
-      <h2>Informações importadas do Excel</h2>
-      <p class="sub" id="excelInfoSub">A tabela importada fica no final da página e ocupa toda a largura disponível.</p>
+      <div class="tableSectionHead">
+        <div>
+          <h2>Informações importadas do Excel</h2>
+          <p class="sub" id="excelInfoSub">A tabela importada fica no final da página, ocupa toda a largura e tem ordenação por menor data ou maior data.</p>
+        </div>
+        <a class="jumpTableBtn" href="#tableBottomControls">Ir para mudar página</a>
+      </div>
+
+      <div class="tableDateSummary" id="tableDateSummary" aria-label="Resumo das datas da tabela"></div>
+
+      <div class="tableTools" aria-label="Controles superiores das informações importadas do Excel">
+        <div class="tableToolsTitle">
+          <b>Controle da tabela</b>
+          <span>Use estes campos para ordenar, escolher quantas linhas aparecem e navegar pelas páginas.</span>
+        </div>
+        <div class="tableToolsMain">
+          <label>Ordenar tabela
+            <select id="tableSort">
+              <option value="dateAsc">Menor data primeiro</option>
+              <option value="dateDesc">Maior data primeiro</option>
+              <option value="qtdNFDesc">Maior Qtd NF</option>
+              <option value="qtdNFAsc">Menor Qtd NF</option>
+              <option value="qtdFisicoDesc">Maior Qtd físico</option>
+              <option value="qtdFisicoAsc">Menor Qtd físico</option>
+              <option value="fornecedorAz">Fornecedor A-Z</option>
+              <option value="localAz">Local A-Z</option>
+              <option value="nfAz">NF A-Z</option>
+            </select>
+          </label>
+          <label>Linhas por página
+            <select id="tablePageSize">
+              <option value="20">20 informações</option>
+              <option value="50">50 informações</option>
+              <option value="100">100 informações</option>
+              <option value="200">200 informações</option>
+              <option value="500">500 informações</option>
+            </select>
+          </label>
+          <label>Ir para página
+            <input id="tablePageJump" type="number" min="1" step="1" value="1" />
+          </label>
+        </div>
+        <div class="tablePager" aria-label="Mudança de página da tabela">
+          <span class="tablePagerLabel">Mudar página</span>
+          <button class="pageBtn" type="button" data-table-nav="first">« Primeira</button>
+          <button class="pageBtn" type="button" data-table-nav="prev">‹ Anterior</button>
+          <span class="tablePageStatus" data-table-page-info>Página 1 de 1</span>
+          <button class="pageBtn" type="button" data-table-nav="next">Próxima ›</button>
+          <button class="pageBtn" type="button" data-table-nav="last">Última »</button>
+        </div>
+      </div>
+
+      <div class="tablePageInfo" id="tablePageInfo"></div>
       <div class="tableWrap"><table><thead><tr><th>Data</th><th>Setor</th><th>Fornecedor</th><th>Código</th><th>NF</th><th>Qtd NF</th><th>Qtd físico</th><th>Turno</th><th>Conferente</th></tr></thead><tbody id="rows"></tbody></table></div>
+
+      <div class="tableBottomArea" id="tableBottomControls">
+        <div class="tableDateSummary tableDateSummaryBottom" id="tableDateSummaryBottom" aria-label="Resumo das datas da tabela no rodapé"></div>
+        <div class="tableTools tableToolsBottom" aria-label="Controles inferiores das informações importadas do Excel">
+          <div class="tableToolsTitle">
+            <b>Paginação e datas</b>
+            <span>Os mesmos controles ficam aqui embaixo para você não precisar voltar ao início da tabela.</span>
+          </div>
+          <div class="tableToolsMain">
+            <label>Ordenar por data ou campo
+              <select id="tableSortBottom">
+                <option value="dateAsc">Menor data primeiro</option>
+                <option value="dateDesc">Maior data primeiro</option>
+                <option value="qtdNFDesc">Maior Qtd NF</option>
+                <option value="qtdNFAsc">Menor Qtd NF</option>
+                <option value="qtdFisicoDesc">Maior Qtd físico</option>
+                <option value="qtdFisicoAsc">Menor Qtd físico</option>
+                <option value="fornecedorAz">Fornecedor A-Z</option>
+                <option value="localAz">Local A-Z</option>
+                <option value="nfAz">NF A-Z</option>
+              </select>
+            </label>
+            <label>Linhas por página
+              <select id="tablePageSizeBottom">
+                <option value="20">20 informações</option>
+                <option value="50">50 informações</option>
+                <option value="100">100 informações</option>
+                <option value="200">200 informações</option>
+                <option value="500">500 informações</option>
+              </select>
+            </label>
+            <label>Ir para página
+              <input id="tablePageJumpBottom" type="number" min="1" step="1" value="1" />
+            </label>
+          </div>
+          <div class="tablePager tablePagerBottom" aria-label="Mudança de página da tabela no rodapé">
+            <span class="tablePagerLabel">Mudar página</span>
+            <button class="pageBtn" type="button" data-table-nav="first">« Primeira</button>
+            <button class="pageBtn" type="button" data-table-nav="prev">‹ Anterior</button>
+            <span class="tablePageStatus" data-table-page-info>Página 1 de 1</span>
+            <button class="pageBtn" type="button" data-table-nav="next">Próxima ›</button>
+            <button class="pageBtn" type="button" data-table-nav="last">Última »</button>
+          </div>
+        </div>
+      </div>
+
       <div class="footer" id="foot"></div>
     </section>
   </main>
@@ -224,6 +434,7 @@ let currentDetail = {title:'Visão geral', meta:'Clique em qualquer gráfico par
 let pdfBusy = false;
 let dataSourceName = 'base embutida';
 const TABLE_LIMIT = 20;
+let tableView = {page:1, pageSize:20, sort:'dateAsc'};
 let localChart = {limit:'20', sort:'desc', search:''};
 const fmt = new Intl.NumberFormat('pt-BR');
 const pct = v => (v*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
@@ -272,10 +483,10 @@ function validDateParts(y,m,d){const dt=new Date(y,m-1,d); return dt.getFullYear
 function isoFromParts(y,m,d){y=fullYear(y); m=Number(m); d=Number(d); return validDateParts(y,m,d)?`${y}-${pad2(m)}-${pad2(d)}`:''}
 function parseDateValue(v, order='DMY'){
   if(v instanceof Date && !isNaN(v)) return isoFromParts(v.getFullYear(),v.getMonth()+1,v.getDate());
-  if(typeof v==='number' && window.XLSX && XLSX.SSF){const d=XLSX.SSF.parse_date_code(v); return d?isoFromParts(d.y,d.m,d.d):''}
+  if(typeof v==='number' && window.XLSX && XLSX.SSF){const n=Number(v); if(n>20000 && n<80000){const d=XLSX.SSF.parse_date_code(n); return d?isoFromParts(d.y,d.m,d.d):'';} return '';}
   const s=String(v??'').trim();
   if(!s) return '';
-  if(/^\d+(?:\.0+)?$/.test(s) && window.XLSX && XLSX.SSF){
+  if(/^\d+(?:\.\d+)?$/.test(s) && window.XLSX && XLSX.SSF){
     const n=Number(s);
     if(n>20000 && n<80000){const d=XLSX.SSF.parse_date_code(n); if(d) return isoFromParts(d.y,d.m,d.d)}
   }
@@ -340,6 +551,131 @@ function parseNumberSmart(v){
   const n=Number(s);
   return isFinite(n)?n:0;
 }
+function compactKeyText(v){return normalize(String(v??'').trim()).replace(/\s+/g,' ')}
+function compactCodeText(v){return normalize(String(v??'').replace(/[\.\s\-_/]/g,'').trim())}
+function compactNum(v){return String(Math.round((parseNumberSmart(v)+Number.EPSILON)*1000000)/1000000)}
+function recordIdentityKey(r){
+  const data=parseDateToISO(r.data)||'';
+  const codigo=compactCodeText(r.codigo||r.codigoOriginal);
+  const nf=compactKeyText(r.nf).replace(/\s+/g,'');
+  const fornecedor=compactKeyText(r.codFornecedor||r.fornecedor).replace(/\s+/g,'');
+  const setor=compactKeyText(r.setor).replace(/\s+/g,'');
+  const primary=[data,codigo,nf,fornecedor,setor].join('|');
+  return primary.replace(/\|/g,'')?primary:'';
+}
+function recordFullSignature(r){
+  return [
+    parseDateToISO(r.data)||'',compactCodeText(r.codigo||r.codigoOriginal),compactKeyText(r.nf).replace(/\s+/g,''),compactKeyText(r.codFornecedor).replace(/\s+/g,''),
+    compactKeyText(r.fornecedor),compactKeyText(r.setor),compactNum(r.qtdNF),compactNum(r.qtdFisico),compactNum(r.divergencia),compactKeyText(r.rdl),compactKeyText(r.conferente),compactKeyText(r.turno)
+  ].join('|');
+}
+function uniqueImportedRows(incoming){
+  const ordered=[];
+  const map=new Map();
+  let duplicatesInFile=0;
+  (incoming||[]).forEach((r,idx)=>{
+    const key=recordIdentityKey(r)||`__imported_${idx}_${recordFullSignature(r)}`;
+    if(map.has(key)) duplicatesInFile++;
+    else ordered.push(key);
+    map.set(key,r);
+  });
+  return {records:ordered.map(k=>map.get(k)).filter(Boolean),keys:new Set(ordered),duplicatesInFile};
+}
+function mergeImportedRecords(existing,incoming,mode='mergeUpdate'){
+  const current=Array.isArray(existing)?existing:[];
+  const importedUnique=uniqueImportedRows(incoming);
+  const imported=importedUnique.records;
+  if(mode==='replaceAll'){
+    return {records:imported,added:imported.length,replaced:0,skipped:0,exactMatches:0,duplicatesInFile:importedUnique.duplicatesInFile,duplicatesInBase:0,totalImported:(incoming||[]).length,totalBefore:current.length,after:imported.length,mode};
+  }
+  const ordered=[];
+  const map=new Map();
+  let duplicatesInBase=0;
+  current.forEach((r,idx)=>{
+    const key=recordIdentityKey(r)||`__existing_${idx}_${recordFullSignature(r)}`;
+    if(map.has(key)) duplicatesInBase++;
+    else ordered.push(key);
+    map.set(key,r);
+  });
+  let added=0,replaced=0,skipped=0,exactMatches=0;
+  imported.forEach((r,idx)=>{
+    const key=recordIdentityKey(r)||`__incoming_${idx}_${recordFullSignature(r)}`;
+    if(map.has(key)){
+      if(mode==='mergeIgnore'){
+        skipped++;
+        return;
+      }
+      const old=map.get(key);
+      if(recordFullSignature(old)===recordFullSignature(r)){
+        exactMatches++;
+        skipped++;
+        return;
+      }
+      map.set(key,r);
+      replaced++;
+    }else{
+      ordered.push(key);
+      map.set(key,r);
+      added++;
+    }
+  });
+  const records=ordered.map(k=>map.get(k)).filter(Boolean);
+  return {records,added,replaced,skipped,exactMatches,duplicatesInFile:importedUnique.duplicatesInFile,duplicatesInBase,totalImported:(incoming||[]).length,totalBefore:current.length,after:records.length,mode};
+}
+function importModeLabel(mode){return {mergeUpdate:'Repetidos: substituir',mergeIgnore:'Repetidos: excluir/ignorar',replaceAll:'Substituir tudo pela planilha'}[mode]||'Repetidos: substituir'}
+function selectedImportMode(){const el=$('importMode'); return el?el.value:'mergeUpdate'}
+function resetDashboardControls(title,meta){
+  filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',codigo:'',nf:'',search:'',month:null,status:'Todos',onlyDivergences:false};
+  localChart={limit:'20',sort:'desc',search:''};
+  tableView={page:1,pageSize:20,sort:'dateAsc'};
+  currentDetail={title,meta};
+}
+function importSummaryText(fileName,result,merge,ignored){
+  const parts=[
+    `Arquivo ${fileName} avaliado com ${fmt.format(result.records.length)} registro(s) válido(s).`,
+    `Modo usado: ${importModeLabel(merge.mode)}.`,
+    `Adicionados: ${fmt.format(merge.added)}.`,
+    `Substituídos: ${fmt.format(merge.replaced)}.`,
+    `Excluídos/ignorados por repetição: ${fmt.format(merge.skipped+merge.duplicatesInFile)}.`,
+    `Total atual: ${fmt.format(merge.after)} registro(s).`
+  ];
+  if(merge.exactMatches) parts.push(`${fmt.format(merge.exactMatches)} registro(s) eram exatamente iguais aos já existentes e não foram duplicados.`);
+  if(merge.duplicatesInFile) parts.push(`${fmt.format(merge.duplicatesInFile)} repetição(ões) dentro do próprio arquivo foram consolidadas.`);
+  if(merge.duplicatesInBase) parts.push(`${fmt.format(merge.duplicatesInBase)} repetição(ões) que já estavam na base foram consolidadas.`);
+  if(ignored) parts.push(`${fmt.format(ignored)} linha(s) vazia(s) ou incompleta(s) foram ignoradas.`);
+  parts.push('Datas exibidas como dd/mm/aaaa.');
+  return parts.join(' ');
+}
+function emptyKd(){return MONTHS.map(m=>({mes:m,ea211_1:0,ea211_2:0,total:0,divergencias:0,meta:80}))}
+function buildKdFromRecords(list){
+  const base=emptyKd();
+  const byMonth=new Map(base.map(item=>[item.mes,item]));
+  (list||[]).forEach(r=>{
+    const mes=monthKey(r.data);
+    const item=byMonth.get(mes);
+    if(!item) return;
+    const setor=normalize(r.setor||'');
+    if(setor.includes('ea211-2')||setor.includes('ea211 2')) item.ea211_2++;
+    else item.ea211_1++;
+    item.total++;
+    if(isDivergence(r)) item.divergencias++;
+  });
+  return base;
+}
+function clearAllImportedData(){
+  if(!records.length){showToast('Não há informações para excluir.');return}
+  if(!confirm(`Excluir todas as ${fmt.format(records.length)} informações carregadas da tela? Esta ação não altera o arquivo Excel original.`)) return;
+  const removed=records.length;
+  records=[];
+  kd=emptyKd();
+  dataSourceName='sem dados';
+  const input=$('fileInput');
+  if(input) input.value='';
+  resetDashboardControls('Informações excluídas',`Todas as ${fmt.format(removed)} informações foram removidas da tela. Para carregar novamente, clique em Importar Excel.`);
+  render();
+  showToast('Todas as informações foram excluídas da tela.');
+}
+function bindDeleteAllButton(){const btn=$('deleteAllBtn'); if(btn) btn.addEventListener('click',clearAllImportedData)}
 function signedFmt(v){const n=toNum(v); return n>0?'+'+fmt.format(n):fmt.format(n)}
 function divAmount(r){return toNum(r.qtdFisico)-toNum(r.qtdNF)}
 function isDivergence(r){return Math.abs(divAmount(r))>0.000001}
@@ -366,22 +702,102 @@ function totalSummary(arr){return arr.reduce((s,r)=>{s.registros++;s.qtdNF+=toNu
 function summaryByName(arr,key,name){return totalSummary(arr.filter(r=>(r[key]||'Sem informação')===name))}
 function detailStatsHtml(s){return `<div class="detailStats"><div class="detailStat"><span>Registros avaliados</span><b>${fmt.format(s.registros||0)}</b></div><div class="detailStat"><span>Qtd NF total</span><b>${fmt.format(s.qtdNF||0)}</b></div><div class="detailStat"><span>Qtd físico total</span><b>${fmt.format(s.qtdFisico||0)}</b></div></div>`}
 function localChartData(data){let items=groupBy(data,'setor'); const q=normalize(localChart.search||''); if(q) items=items.filter(d=>normalize(d.name).includes(q)); if(localChart.sort==='asc') items.sort((a,b)=>a.value-b.value||String(a.name).localeCompare(String(b.name),'pt-BR')); else if(localChart.sort==='qtdNF') items.sort((a,b)=>summaryByName(data,'setor',b.name).qtdNF-summaryByName(data,'setor',a.name).qtdNF||b.value-a.value||String(a.name).localeCompare(String(b.name),'pt-BR')); else if(localChart.sort==='az') items.sort((a,b)=>String(a.name).localeCompare(String(b.name),'pt-BR')); else if(localChart.sort==='za') items.sort((a,b)=>String(b.name).localeCompare(String(a.name),'pt-BR')); else items.sort((a,b)=>b.value-a.value||String(a.name).localeCompare(String(b.name),'pt-BR')); const total=items.length; const limit=localChart.limit==='all'?total:Number(localChart.limit||20); return {items:items.slice(0,limit),total,limit}}
+function tableComparableDate(r){return parseDateToISO(r.data)||''}
+function tableRowSearchText(r){return normalize([formatDateBR(r.data),r.setor,r.fornecedor,r.codigoOriginal,r.codigo,r.nf,r.codFornecedor,r.turno,r.conferente,fmt.format(r.qtdNF),fmt.format(r.qtdFisico)].join(' '))}
+function orderedTableData(data){let rows=data.map((r,i)=>({r,i})); const q=normalize(tableState.search||''); if(q) rows=rows.filter(x=>tableRowSearchText(x.r).includes(q)); const byText=(a,b,field)=>String(a.r[field]||'').localeCompare(String(b.r[field]||''),'pt-BR'); rows.sort((a,b)=>{const da=tableComparableDate(a.r), db=tableComparableDate(b.r); switch(tableState.sort){case 'dateDesc': return (db||'0000-00-00').localeCompare(da||'0000-00-00')||a.i-b.i; case 'original': return a.i-b.i; case 'qtdNFDesc': return toNum(b.r.qtdNF)-toNum(a.r.qtdNF)||a.i-b.i; case 'qtdNFAsc': return toNum(a.r.qtdNF)-toNum(b.r.qtdNF)||a.i-b.i; case 'fornecedorAZ': return byText(a,b,'fornecedor')||a.i-b.i; case 'localAZ': return byText(a,b,'setor')||a.i-b.i; case 'dateAsc': default: return (da||'9999-99-99').localeCompare(db||'9999-99-99')||a.i-b.i;}}); return rows.map(x=>x.r)}
 function syncLocalChartControls(){const s=$('localChartSearch'), o=$('localChartSort'), l=$('localChartLimit'); if(s) s.value=localChart.search||''; if(o) o.value=localChart.sort||'desc'; if(l) l.value=localChart.limit||'20'}
 function bindLocalChartControls(){const s=$('localChartSearch'), o=$('localChartSort'), l=$('localChartLimit'); if(s) s.addEventListener('input',e=>{localChart.search=e.target.value; paint()}); if(o) o.addEventListener('change',e=>{localChart.sort=e.target.value; paint()}); if(l) l.addEventListener('change',e=>{localChart.limit=e.target.value; paint()})}
-function renderSectorChart(data){const view=localChartData(data); const chart=$('sectorChart'); if(chart) chart.style.height=`${Math.min(900,Math.max(310,view.items.length*38+60))}px`; renderBar('sectorChart', view.items.length?view.items:[{name:'Sem informação',value:0}], {color:'var(--cyan)', horizontal:true, onClick:d=>{const summary=summaryByName(data,'setor',d.name); selectFilter('setor',d.name,`Local/setor: ${d.name}`,`${fmt.format(d.value)} spot checks no filtro atual. Participação: ${pct(d.value/Math.max(data.length,1))}.`,detailStatsHtml(summary))}}); const summary=$('localChartSummary'); if(summary){const txt=localChart.limit==='all'?'todos os locais disponíveis':`${fmt.format(view.items.length)} de ${fmt.format(view.total)} locais`; summary.textContent=`Mostrando ${txt} no gráfico. A tabela no final da página mostra somente ${fmt.format(TABLE_LIMIT)} registros para manter a tela leve.`}}
+function renderSectorChart(data){const view=localChartData(data); const chart=$('sectorChart'); if(chart) chart.style.height=`${Math.min(900,Math.max(310,view.items.length*38+60))}px`; renderBar('sectorChart', view.items.length?view.items:[{name:'Sem informação',value:0}], {color:'var(--cyan)', horizontal:true, onClick:d=>{const summary=summaryByName(data,'setor',d.name); selectFilter('setor',d.name,`Local/setor: ${d.name}`,`${fmt.format(d.value)} spot checks no filtro atual. Participação: ${pct(d.value/Math.max(data.length,1))}.`,detailStatsHtml(summary))}}); const summary=$('localChartSummary'); if(summary){const txt=localChart.limit==='all'?'todos os locais disponíveis':`${fmt.format(view.items.length)} de ${fmt.format(view.total)} locais`; summary.textContent=`Mostrando ${txt} no gráfico. A tabela no final da página mostra ${fmt.format(tableView.pageSize)} registros por página e tem botões de navegação acima e abaixo.`}}
 function monthFilterOptions(){const found=uniq(records.map(r=>monthKey(r.data))).filter(Boolean); return MONTHS.filter(m=>found.includes(m))}
-function renderAnalysisPanel(data){const el=$('analysisBox'); if(!el) return; const totals=totalSummary(data); const fornecedores=new Set(data.map(r=>r.fornecedor).filter(Boolean)).size; const locais=new Set(data.map(r=>r.setor).filter(Boolean)).size; const nfs=new Set(data.map(r=>r.nf).filter(Boolean)).size; const conferentes=new Set(data.map(r=>r.conferente).filter(Boolean)).size; el.innerHTML=`<div class="analysisRow analysisOk"><span>Status</span><b>Dados avaliados</b><small>Base analisada: ${fmt.format(data.length)} registro(s) filtrado(s).</small></div><div class="analysisRow"><span>Registros avaliados</span><b>${fmt.format(data.length)}</b><small>Total de linhas consideradas após os filtros.</small></div><div class="analysisRow"><span>Qtd NF total</span><b>${fmt.format(totals.qtdNF)}</b><small>Soma da quantidade da NF em todos os registros filtrados.</small></div><div class="analysisRow"><span>Qtd físico total</span><b>${fmt.format(totals.qtdFisico)}</b><small>Soma da quantidade física em todos os registros filtrados.</small></div><div class="analysisRow"><span>NFs avaliadas</span><b>${fmt.format(nfs)}</b><small>Notas fiscais distintas no filtro atual.</small></div><div class="analysisRow"><span>Fornecedores</span><b>${fmt.format(fornecedores)}</b><small>Fornecedores distintos no filtro atual.</small></div><div class="analysisRow"><span>Locais/setores</span><b>${fmt.format(locais)}</b><small>Locais distintos no filtro atual.</small></div><div class="analysisRow"><span>Conferentes</span><b>${fmt.format(conferentes)}</b><small>Conferentes distintos no filtro atual.</small></div><div class="analysisRow wide"><span>Fonte dos dados</span><b>${escapeHtml(dataSourceName)}</b><small>Esta análise usa todos os dados filtrados, enquanto a tabela final mostra apenas ${fmt.format(TABLE_LIMIT)} linhas na tela.</small></div>`}
+function renderAnalysisPanel(data){const el=$('analysisBox'); if(!el) return; const totals=totalSummary(data); const fornecedores=new Set(data.map(r=>r.fornecedor).filter(Boolean)).size; const locais=new Set(data.map(r=>r.setor).filter(Boolean)).size; const nfs=new Set(data.map(r=>r.nf).filter(Boolean)).size; const conferentes=new Set(data.map(r=>r.conferente).filter(Boolean)).size; el.innerHTML=`<div class="analysisRow analysisOk"><span>Status</span><b>Dados avaliados</b><small>Base analisada: ${fmt.format(data.length)} registro(s) filtrado(s).</small></div><div class="analysisRow"><span>Registros avaliados</span><b>${fmt.format(data.length)}</b><small>Total de linhas consideradas após os filtros.</small></div><div class="analysisRow"><span>Qtd NF total</span><b>${fmt.format(totals.qtdNF)}</b><small>Soma da quantidade da NF em todos os registros filtrados.</small></div><div class="analysisRow"><span>Qtd físico total</span><b>${fmt.format(totals.qtdFisico)}</b><small>Soma da quantidade física em todos os registros filtrados.</small></div><div class="analysisRow"><span>NFs avaliadas</span><b>${fmt.format(nfs)}</b><small>Notas fiscais distintas no filtro atual.</small></div><div class="analysisRow"><span>Fornecedores</span><b>${fmt.format(fornecedores)}</b><small>Fornecedores distintos no filtro atual.</small></div><div class="analysisRow"><span>Locais/setores</span><b>${fmt.format(locais)}</b><small>Locais distintos no filtro atual.</small></div><div class="analysisRow"><span>Conferentes</span><b>${fmt.format(conferentes)}</b><small>Conferentes distintos no filtro atual.</small></div><div class="analysisRow wide"><span>Fonte dos dados</span><b>${escapeHtml(dataSourceName)}</b><small>Esta análise usa todos os dados filtrados, enquanto a tabela final mostra ${fmt.format(tableView.pageSize)} linhas por página na tela.</small></div>`}
 function renderFilters(){setSelect('setor',uniq(records.map(r=>r.setor)));setSelect('fornecedor',uniq(records.map(r=>r.fornecedor)));setSelect('turno',uniq(records.map(r=>r.turno)));setSelect('conferente',uniq(records.map(r=>r.conferente))); const mes=$('mes'); if(mes){const months=monthFilterOptions(); mes.innerHTML='<option>Todos</option>'+months.map(m=>`<option>${escapeHtml(m)}</option>`).join(''); mes.value=filters.month&&months.includes(filters.month)?filters.month:'Todos'} const status=$('status'); if(status){const values=['OK','Com diferença']; status.innerHTML='<option>Todos</option>'+values.map(v=>`<option>${escapeHtml(v)}</option>`).join(''); status.value=values.includes(filters.status)?filters.status:'Todos'}}
 function render(){renderFilters(); paint();}
 function paint(){const data=applyFilters(); updateKpis(data); renderKD(); renderBar('supplierChart', groupBy(data,'fornecedor').slice(0,20), {color:'var(--blue)', horizontal:true, onClick:d=>{const related=data.filter(r=>(r.fornecedor||'Sem informação')===d.name); const totals=totalSummary(related); selectFilter('fornecedor',d.name,`Fornecedor: ${d.name}`,`${fmt.format(d.value)} spot checks no filtro atual. Participação: ${pct(d.value/Math.max(data.length,1))}. Qtd NF: ${fmt.format(totals.qtdNF)} | Qtd físico: ${fmt.format(totals.qtdFisico)}.`,detailStatsHtml(totals))}}); renderSectorChart(data); renderAnalysisPanel(data); paintTable(data); paintDetail();}
 function syncInputs(){['setor','fornecedor','turno','conferente'].forEach(id=>{const el=$(id); if(el) el.value=filters[id]}); const mes=$('mes'); if(mes) mes.value=filters.month||'Todos'; const status=$('status'); if(status) status.value=filters.status||'Todos'; const codigo=$('codigoFilter'); if(codigo) codigo.value=filters.codigo||''; const nf=$('nfFilter'); if(nf) nf.value=filters.nf||''; const search=$('search'); if(search) search.value=filters.search; syncLocalChartControls()}
-function selectFilter(key,value,title,meta,html=''){filters[key]=value; filters.onlyDivergences=false; currentDetail={title,meta,html}; syncInputs(); paint()}
-function selectDivergence(d){if(!d.value){currentDetail={title:'Sem diferenças',meta:'Não há diferenças no filtro atual.'}; paintDetail(); return;} filters.fornecedor=d.name; filters.onlyDivergences=true; currentDetail={title:`Diferenças: ${d.name}`,meta:`Mostrando somente os registros com diferença deste fornecedor. Valor absoluto da diferença: ${fmt.format(d.value)}. Diferença líquida: ${signedFmt(d.liquido)}.`,html:detailStatsHtml(d)}; syncInputs(); paint()}
+function selectFilter(key,value,title,meta,html=''){filters[key]=value; filters.onlyDivergences=false; resetTablePage(); currentDetail={title,meta,html}; syncInputs(); paint()}
+function selectDivergence(d){if(!d.value){currentDetail={title:'Sem diferenças',meta:'Não há diferenças no filtro atual.'}; paintDetail(); return;} filters.fornecedor=d.name; filters.onlyDivergences=true; resetTablePage(); currentDetail={title:`Diferenças: ${d.name}`,meta:`Mostrando somente os registros com diferença deste fornecedor. Valor absoluto da diferença: ${fmt.format(d.value)}. Diferença líquida: ${signedFmt(d.liquido)}.`,html:detailStatsHtml(d)}; syncInputs(); paint()}
 function updateKpis(data){const dates=data.map(r=>parseDateToISO(r.data)).filter(Boolean).sort(); const min=dates[0], max=dates.at(-1); $('kTotal').textContent=fmt.format(data.length); $('kDiv').textContent=fmt.format(new Set(data.map(r=>r.setor).filter(Boolean)).size); $('kSup').textContent=fmt.format(new Set(data.map(r=>r.fornecedor).filter(Boolean)).size); $('kOk').textContent=fmt.format(new Set(data.map(r=>r.nf).filter(Boolean)).size); $('kPeriodo').textContent=min?`${formatDateBR(min)} a ${formatDateBR(max)}`:'-'}
 function paintDetail(){const extra=currentDetail.html||''; $('detailBox').innerHTML=`<div class="detailTitle">${escapeHtml(currentDetail.title)}</div><div class="detailMeta">${escapeHtml(currentDetail.meta)}</div>${extra}`}
-function paintTable(data){const tbody=$('rows'); const slice=data.slice(0,TABLE_LIMIT); tbody.innerHTML=slice.map(r=>`<tr><td>${formatDateBR(r.data)}</td><td><span class="pill">${escapeHtml(r.setor)}</span></td><td>${escapeHtml(r.fornecedor)}</td><td>${escapeHtml(r.codigoOriginal||r.codigo)}</td><td>${escapeHtml(r.nf)}</td><td>${fmt.format(r.qtdNF)}</td><td>${fmt.format(r.qtdFisico)}</td><td>${escapeHtml(r.turno)}</td><td>${escapeHtml(r.conferente)}</td></tr>`).join('') || `<tr><td colspan="9" class="empty">Nenhum registro encontrado.</td></tr>`; const sub=$('excelInfoSub'); if(sub) sub.textContent=`Dados da fonte: ${dataSourceName}. A tabela fica no final da página e mostra apenas os primeiros ${fmt.format(TABLE_LIMIT)} registros filtrados. Use os filtros para encontrar o restante ou exporte a tabela completa em PDF.`; $('foot').textContent=`Mostrando ${fmt.format(slice.length)} de ${fmt.format(data.length)} registros filtrados`}
+function dateSortValue(r){const iso=parseDateToISO(r.data); return iso?Number(iso.replace(/-/g,'')):99999999}
+function orderedTableData(data){return sortedTableData(data)}
+function sortedTableData(data){const arr=[...data]; const text=(v)=>normalize(v||''); const cmpText=(a,b)=>String(a||'').localeCompare(String(b||''),'pt-BR',{numeric:true,sensitivity:'base'}); arr.sort((a,b)=>{switch(tableView.sort){case 'dateDesc': return dateSortValue(b)-dateSortValue(a)||cmpText(a.fornecedor,b.fornecedor)||cmpText(a.nf,b.nf); case 'qtdNFDesc': return toNum(b.qtdNF)-toNum(a.qtdNF)||dateSortValue(a)-dateSortValue(b); case 'qtdNFAsc': return toNum(a.qtdNF)-toNum(b.qtdNF)||dateSortValue(a)-dateSortValue(b); case 'qtdFisicoDesc': return toNum(b.qtdFisico)-toNum(a.qtdFisico)||dateSortValue(a)-dateSortValue(b); case 'qtdFisicoAsc': return toNum(a.qtdFisico)-toNum(b.qtdFisico)||dateSortValue(a)-dateSortValue(b); case 'fornecedorAz': return cmpText(a.fornecedor,b.fornecedor)||dateSortValue(a)-dateSortValue(b); case 'localAz': return cmpText(a.setor,b.setor)||dateSortValue(a)-dateSortValue(b); case 'nfAz': return cmpText(a.nf,b.nf)||dateSortValue(a)-dateSortValue(b); case 'dateAsc': default: return dateSortValue(a)-dateSortValue(b)||cmpText(a.fornecedor,b.fornecedor)||cmpText(a.nf,b.nf);}}); return arr}
+
+function tablePageCount(total){return Math.max(1,Math.ceil(Number(total||0)/Math.max(1,Number(tableView.pageSize)||20)))}
+function resetTablePage(){tableView.page=1}
+function tableSortLabel(){return {dateAsc:'Menor data primeiro',dateDesc:'Maior data primeiro',qtdNFDesc:'Maior Qtd NF',qtdNFAsc:'Menor Qtd NF',qtdFisicoDesc:'Maior Qtd físico',qtdFisicoAsc:'Menor Qtd físico',fornecedorAz:'Fornecedor A-Z',localAz:'Local A-Z',nfAz:'NF A-Z'}[tableView.sort]||'Menor data primeiro'}
+function tableDateRange(data){
+  const dates=data.map(r=>parseDateValue(r.data)).filter(Boolean).sort();
+  return {min:dates[0]||'',max:dates[dates.length-1]||''};
+}
+function tableControlEls(){
+  return {
+    sorts:[$('tableSort'),$('tableSortBottom')].filter(Boolean),
+    sizes:[$('tablePageSize'),$('tablePageSizeBottom')].filter(Boolean),
+    jumps:[$('tablePageJump'),$('tablePageJumpBottom')].filter(Boolean)
+  };
+}
+function syncTableControls(total=0){
+  const {sorts,sizes,jumps}=tableControlEls();
+  const pages=tablePageCount(total);
+  tableView.page=Math.min(Math.max(1,Number(tableView.page)||1),pages);
+  sorts.forEach(el=>{el.value=tableView.sort||'dateAsc'});
+  sizes.forEach(el=>{el.value=String(tableView.pageSize||20)});
+  jumps.forEach(el=>{el.max=String(pages); el.value=String(tableView.page); el.setAttribute('aria-label',`Ir para página, total ${pages}`)});
+  document.querySelectorAll('[data-table-page-info]').forEach(el=>el.textContent=`Página ${fmt.format(tableView.page)} de ${fmt.format(pages)}`);
+  document.querySelectorAll('[data-table-nav]').forEach(btn=>{
+    const nav=btn.getAttribute('data-table-nav');
+    const disable=(nav==='first'||nav==='prev')?tableView.page<=1:tableView.page>=pages;
+    btn.disabled=disable;
+    btn.setAttribute('aria-disabled',String(disable));
+  });
+}
+function bindTableControls(){
+  const {sorts,sizes,jumps}=tableControlEls();
+  sorts.forEach(el=>el.addEventListener('change',e=>{tableView.sort=e.target.value; resetTablePage(); paint(); const panel=$('excelDataPanel'); if(panel) panel.scrollIntoView({behavior:'smooth',block:'start'});}));
+  sizes.forEach(el=>el.addEventListener('change',e=>{tableView.pageSize=Number(e.target.value)||20; resetTablePage(); paint(); const panel=$('excelDataPanel'); if(panel) panel.scrollIntoView({behavior:'smooth',block:'start'});}));
+  jumps.forEach(el=>el.addEventListener('change',e=>{const pages=tablePageCount(sortedTableData(applyFilters()).length); tableView.page=Math.min(Math.max(1,Number(e.target.value)||1),pages); paint(); const panel=$('excelDataPanel'); if(panel) panel.scrollIntoView({behavior:'smooth',block:'start'});}));
+  document.querySelectorAll('[data-table-nav]').forEach(btn=>btn.addEventListener('click',()=>{
+    const total=sortedTableData(applyFilters()).length;
+    const pages=tablePageCount(total);
+    const nav=btn.getAttribute('data-table-nav');
+    if(nav==='first') tableView.page=1;
+    if(nav==='prev') tableView.page=Math.max(1,tableView.page-1);
+    if(nav==='next') tableView.page=Math.min(pages,tableView.page+1);
+    if(nav==='last') tableView.page=pages;
+    paint();
+    const bottom=$('tableBottomControls'), panel=$('excelDataPanel');
+    if(nav==='next'||nav==='last'){if(bottom) bottom.scrollIntoView({behavior:'smooth',block:'nearest'});} else if(panel){panel.scrollIntoView({behavior:'smooth',block:'start'});}
+  }));
+}
+function paintTableDateSummaries(tableData,start,fim,pages){
+  const range=tableDateRange(tableData);
+  const html=`<div class="tableDateCard"><span>Menor data encontrada</span><b>${range.min?formatDateBR(range.min):'-'}</b><small>Primeira data dentro dos filtros atuais.</small></div><div class="tableDateCard"><span>Maior data encontrada</span><b>${range.max?formatDateBR(range.max):'-'}</b><small>Última data dentro dos filtros atuais.</small></div><div class="tableDateCard"><span>Página atual</span><b>${fmt.format(tableView.page)} de ${fmt.format(pages)}</b><small>Exibindo linhas ${fmt.format(start)} a ${fmt.format(fim)}.</small></div><div class="tableDateCard"><span>Ordenação ativa</span><b>${escapeHtml(tableSortLabel())}</b><small>Total filtrado: ${fmt.format(tableData.length)} registro(s).</small></div>`;
+  ['tableDateSummary','tableDateSummaryBottom'].forEach(id=>{const el=$(id); if(el) el.innerHTML=html});
+}
+function paintTable(data){
+  const tbody=$('rows');
+  const tableData=sortedTableData(data);
+  const pages=tablePageCount(tableData.length);
+  tableView.page=Math.min(Math.max(1,Number(tableView.page)||1),pages);
+  const pageSize=Math.max(1,Number(tableView.pageSize)||20);
+  const startIndex=(tableView.page-1)*pageSize;
+  const slice=tableData.slice(startIndex,startIndex+pageSize);
+  const inicio=tableData.length?startIndex+1:0;
+  const fim=Math.min(startIndex+slice.length,tableData.length);
+  tbody.innerHTML=slice.map(r=>`<tr><td>${formatDateBR(r.data)}</td><td><span class="pill">${escapeHtml(r.setor)}</span></td><td>${escapeHtml(r.fornecedor)}</td><td>${escapeHtml(r.codigoOriginal||r.codigo)}</td><td>${escapeHtml(r.nf)}</td><td>${fmt.format(r.qtdNF)}</td><td>${fmt.format(r.qtdFisico)}</td><td>${escapeHtml(r.turno)}</td><td>${escapeHtml(r.conferente)}</td></tr>`).join('') || `<tr><td colspan="9" class="empty">Nenhum registro encontrado.</td></tr>`;
+  const sub=$('excelInfoSub');
+  if(sub) sub.textContent=`Dados da fonte: ${dataSourceName}. Os controles aparecem acima e abaixo da tabela. Você pode ordenar por menor data primeiro ou maior data primeiro e navegar página por página.`;
+  const info=$('tablePageInfo');
+  if(info){
+    info.textContent=`Exibindo ${fmt.format(inicio)} a ${fmt.format(fim)} de ${fmt.format(tableData.length)} registro(s). Ordenação: ${tableSortLabel()}. Use Primeira, Anterior, Próxima e Última para mudar de página.`;
+  }
+  const foot=$('foot');
+  if(foot) foot.textContent=`Mostrando ${fmt.format(slice.length)} de ${fmt.format(tableData.length)} registros da tabela | Página ${fmt.format(tableView.page)} de ${fmt.format(pages)}`;
+  syncTableControls(tableData.length);
+  paintTableDateSummaries(tableData,inicio,fim,pages);
+}
 function renderBar(id,data,opt={}){const el=$(id), w=el.clientWidth||500,h=el.clientHeight||260,p=opt.horizontal?{l:120,r:20,t:15,b:26}:{l:34,r:12,t:15,b:46}; const scale=d=>opt.scaleValue?opt.scaleValue(d):d.value; const max=Math.max(...data.map(d=>scale(d)),1); let svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">`; if(opt.horizontal){const bh=(h-p.t-p.b)/Math.max(data.length,1); data.forEach((d,i)=>{const y=p.t+i*bh+4, raw=scale(d), bw=(w-p.l-p.r)*(raw/max), valueLabel=opt.valueText?opt.valueText(d):fmt.format(d.value), title=escapeHtml(opt.tooltip?opt.tooltip(d):`${d.name}: ${valueLabel}`); svg+=`<line class="tick" x1="${p.l}" x2="${w-p.r}" y1="${y+bh-4}" y2="${y+bh-4}"/><text class="label" x="4" y="${y+bh/2+4}">${escapeHtml(String(d.name).slice(0,18))}</text><rect class="bar" x="${p.l}" y="${y}" width="${bw}" height="${Math.max(bh-9,8)}" rx="8" fill="${opt.color||'var(--blue)'}" data-i="${i}"><title>${title}</title></rect><text class="label valueLabel" x="${p.l+bw+6}" y="${y+bh/2+4}">${escapeHtml(valueLabel)}</text>`})}else{const bw=(w-p.l-p.r)/Math.max(data.length,1); data.forEach((d,i)=>{const x=p.l+i*bw+8, raw=scale(d), bh=(h-p.t-p.b)*(raw/max), y=h-p.b-bh, valueLabel=opt.valueText?opt.valueText(d):fmt.format(d.value), title=escapeHtml(opt.tooltip?opt.tooltip(d):`${d.name}: ${valueLabel}`); svg+=`<line class="tick" x1="${p.l}" x2="${w-p.r}" y1="${h-p.b}" y2="${h-p.b}"/><rect class="bar" x="${x}" y="${y}" width="${Math.max(bw-16,10)}" height="${bh}" rx="8" fill="${opt.color||'var(--blue)'}" data-i="${i}"><title>${title}</title></rect><text class="label" x="${x}" y="${h-8}" transform="rotate(-20 ${x},${h-8})">${escapeHtml(String(d.name).slice(0,10))}</text><text class="label valueLabel" x="${x}" y="${y-5}">${escapeHtml(valueLabel)}</text>`})} svg+='</svg>'; el.innerHTML=svg; el.querySelectorAll('.bar').forEach(b=>b.onclick=()=>opt.onClick&&opt.onClick(data[+b.dataset.i]));}
-function renderKD(){const el=$('kdChart'), w=el.clientWidth||760,h=el.clientHeight||320,p={l:42,r:22,t:18,b:44}; const visible=kd; const max=Math.max(...visible.flatMap(d=>[d.ea211_1,d.ea211_2,d.total,d.meta]),1); const bw=(w-p.l-p.r)/visible.length; const y=v=>h-p.b-(h-p.t-p.b)*(v/max); let svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">`; for(let g=0;g<=4;g++){let yy=p.t+(h-p.t-p.b)*g/4; svg+=`<line class="tick" x1="${p.l}" x2="${w-p.r}" y1="${yy}" y2="${yy}"/><text class="axis" x="4" y="${yy+4}">${fmt.format(Math.round(max*(1-g/4)))}</text>`} let ptsMeta=visible.map((d,i)=>`${p.l+i*bw+bw/2},${y(d.meta)}`).join(' '); svg+=`<polyline class="line" stroke="var(--yellow)" points="${ptsMeta}"/>`; visible.forEach((d,i)=>{const x=p.l+i*bw+8; const inner=Math.max((bw-20)/2,8); const y1=y(d.ea211_1), y2=y(d.ea211_2); svg+=`<rect class="bar" x="${x}" y="${y1}" width="${inner}" height="${h-p.b-y1}" rx="7" fill="var(--blue)" data-i="${i}"><title>EA211-1: ${fmt.format(d.ea211_1)}</title></rect><rect class="bar" x="${x+inner+4}" y="${y2}" width="${inner}" height="${h-p.b-y2}" rx="7" fill="var(--cyan)" data-i="${i}"><title>EA211-2: ${fmt.format(d.ea211_2)}</title></rect><text class="label" x="${x}" y="${h-14}">${d.mes}</text><text class="label valueLabel" x="${x}" y="${Math.min(y1,y2)-5}">${fmt.format(d.total)}</text>`}); svg+='</svg>'; el.innerHTML=svg; el.querySelectorAll('.bar').forEach(n=>n.onclick=()=>{const d=visible[+n.dataset.i]; filters.month=d.mes; filters.onlyDivergences=false; currentDetail={title:`KD.EC.C: ${d.mes}`, meta:`Total ${fmt.format(d.total)} | EA211-1 ${fmt.format(d.ea211_1)} | EA211-2 ${fmt.format(d.ea211_2)} | Meta ${fmt.format(d.meta)}.`}; syncInputs(); paint();});}
+function renderKD(){const el=$('kdChart'), w=el.clientWidth||760,h=el.clientHeight||320,p={l:42,r:22,t:18,b:44}; const visible=kd; const max=Math.max(...visible.flatMap(d=>[d.ea211_1,d.ea211_2,d.total,d.meta]),1); const bw=(w-p.l-p.r)/visible.length; const y=v=>h-p.b-(h-p.t-p.b)*(v/max); let svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">`; for(let g=0;g<=4;g++){let yy=p.t+(h-p.t-p.b)*g/4; svg+=`<line class="tick" x1="${p.l}" x2="${w-p.r}" y1="${yy}" y2="${yy}"/><text class="axis" x="4" y="${yy+4}">${fmt.format(Math.round(max*(1-g/4)))}</text>`} let ptsMeta=visible.map((d,i)=>`${p.l+i*bw+bw/2},${y(d.meta)}`).join(' '); svg+=`<polyline class="line" stroke="var(--yellow)" points="${ptsMeta}"/>`; visible.forEach((d,i)=>{const x=p.l+i*bw+8; const inner=Math.max((bw-20)/2,8); const y1=y(d.ea211_1), y2=y(d.ea211_2); svg+=`<rect class="bar" x="${x}" y="${y1}" width="${inner}" height="${h-p.b-y1}" rx="7" fill="var(--blue)" data-i="${i}"><title>EA211-1: ${fmt.format(d.ea211_1)}</title></rect><rect class="bar" x="${x+inner+4}" y="${y2}" width="${inner}" height="${h-p.b-y2}" rx="7" fill="var(--cyan)" data-i="${i}"><title>EA211-2: ${fmt.format(d.ea211_2)}</title></rect><text class="label" x="${x}" y="${h-14}">${d.mes}</text><text class="label valueLabel" x="${x}" y="${Math.min(y1,y2)-5}">${fmt.format(d.total)}</text>`}); svg+='</svg>'; el.innerHTML=svg; el.querySelectorAll('.bar').forEach(n=>n.onclick=()=>{const d=visible[+n.dataset.i]; filters.month=d.mes; filters.onlyDivergences=false; resetTablePage(); currentDetail={title:`KD.EC.C: ${d.mes}`, meta:`Total ${fmt.format(d.total)} | EA211-1 ${fmt.format(d.ea211_1)} | EA211-2 ${fmt.format(d.ea211_2)} | Meta ${fmt.format(d.meta)}.`}; syncInputs(); paint();});}
 
 const PDF_PAGE_DEFS={
   resumo:{title:'Resumo geral',selectors:['.top','.filters','.kpis','#clickInfoPanel']},
@@ -395,7 +811,7 @@ function pdfNow(){const d=new Date(); return `${pad2(d.getDate())}/${pad2(d.getM
 function pdfSafeName(s){return String(s||'dashboard_spotcheck').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')}
 function pdfFilterText(){const parts=[]; if(filters.month) parts.push(`Mês: ${filters.month}`); ['setor','fornecedor','turno','conferente'].forEach(k=>{if(filters[k]&&filters[k]!=='Todos') parts.push(`${k}: ${filters[k]}`)}); if(filters.status&&filters.status!=='Todos') parts.push(`Status: ${filters.status}`); if(filters.codigo) parts.push(`Código: ${filters.codigo}`); if(filters.nf) parts.push(`NF: ${filters.nf}`); if(filters.search) parts.push(`Busca: ${filters.search}`); if(filters.onlyDivergences&&filters.status!=='Com diferença') parts.push('Somente diferenças'); return parts.length?parts.join(' | '):'Sem filtros aplicados'}
 function setPdfBusy(busy,msg=''){pdfBusy=busy; ['pdfGlobalBtn','pdfPageBtn','pdfPageSelect'].forEach(id=>{const el=$(id); if(el) el.disabled=busy}); const st=$('pdfStatus'); if(st) st.textContent=msg}
-function currentPdfData(){return applyFilters()}
+function currentPdfData(){return sortedTableData(applyFilters())}
 function cloneNodeForPdf(sel){const src=typeof sel==='string'?document.querySelector(sel):sel; if(!src) return null; const clone=src.cloneNode(true); clone.querySelectorAll('[id]').forEach((n,i)=>n.id=`pdf_${n.id}_${i}`); return clone}
 function buildPdfHeader(title,data){const head=document.createElement('div'); head.className='pdfReportHead'; const dates=data.map(r=>parseDateToISO(r.data)).filter(Boolean).sort(); const periodo=dates.length?`${formatDateBR(dates[0])} a ${formatDateBR(dates.at(-1))}`:'-'; const totals=totalSummary(data); head.innerHTML=`<div><h1>${escapeHtml(title)}</h1><p>Dashboard Spot Check EA211</p><p>${escapeHtml(pdfFilterText())}</p></div><div class="pdfReportStamp">Gerado em ${escapeHtml(pdfNow())}<br>Registros: ${fmt.format(data.length)}<br>Qtd NF: ${fmt.format(totals.qtdNF)}<br>Qtd físico: ${fmt.format(totals.qtdFisico)}<br>Período: ${escapeHtml(periodo)}</div>`; return head}
 function buildPdfTableBlock(data,title='Tabela de registros',limit=500){const panel=document.createElement('div'); panel.className='panel pdfTablePanel'; const rows=data.slice(0,limit); const skipped=data.length-rows.length; panel.innerHTML=`<h2>${escapeHtml(title)}</h2><p class="sub">Registros considerados no filtro atual. ${skipped>0?`No PDF visual foram incluídos os primeiros ${fmt.format(limit)} registros; use a opção Página: tabela completa para exportar todos em páginas paginadas.`:'Todos os registros filtrados foram incluídos.'}</p>`; const wrap=document.createElement('div'); wrap.className='tableWrap pdfFullTableWrap'; const table=document.createElement('table'); table.innerHTML=`<thead><tr><th>Data</th><th>Setor</th><th>Fornecedor</th><th>Código</th><th>NF</th><th>Qtd NF</th><th>Qtd físico</th><th>Turno</th><th>Conferente</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(formatDateBR(r.data))}</td><td>${escapeHtml(r.setor)}</td><td>${escapeHtml(r.fornecedor)}</td><td>${escapeHtml(r.codigoOriginal||r.codigo)}</td><td>${escapeHtml(r.nf)}</td><td>${fmt.format(r.qtdNF)}</td><td>${fmt.format(r.qtdFisico)}</td><td>${escapeHtml(r.turno)}</td><td>${escapeHtml(r.conferente)}</td></tr>`).join('')||`<tr><td colspan="9" class="empty">Nenhum registro encontrado.</td></tr>`}</tbody>`; wrap.appendChild(table); panel.appendChild(wrap); return panel}
@@ -411,9 +827,12 @@ function bindPdfButtons(){const g=$('pdfGlobalBtn'), p=$('pdfPageBtn'); if(g) g.
 bindPdfButtons();
 bindInternalPages();
 bindLocalChartControls();
+bindTableControls();
+bindDeleteAllButton();
 syncLocalChartControls();
+syncTableControls(applyFilters().length);
 
-['setor','fornecedor','turno','conferente'].forEach(id=>$(id).addEventListener('change',e=>{filters[id]=e.target.value; filters.onlyDivergences=false; currentDetail={title:'Filtro aplicado',meta:`${id}: ${e.target.value}`}; paint()})); const mesFilter=$('mes'); if(mesFilter) mesFilter.addEventListener('change',e=>{filters.month=e.target.value==='Todos'?null:e.target.value; filters.onlyDivergences=false; currentDetail={title:'Filtro aplicado',meta:`Mês: ${e.target.value}`}; paint()}); const statusFilter=$('status'); if(statusFilter) statusFilter.addEventListener('change',e=>{filters.status=e.target.value; filters.onlyDivergences=false; currentDetail={title:'Filtro aplicado',meta:`Status: ${e.target.value}`}; paint()}); const codigoFilter=$('codigoFilter'); if(codigoFilter) codigoFilter.addEventListener('input',e=>{filters.codigo=e.target.value; filters.onlyDivergences=false; paint()}); const nfFilter=$('nfFilter'); if(nfFilter) nfFilter.addEventListener('input',e=>{filters.nf=e.target.value; filters.onlyDivergences=false; paint()}); $('search').addEventListener('input',e=>{filters.search=e.target.value; filters.onlyDivergences=false; paint()}); $('clearBtn').onclick=()=>{filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',codigo:'',nf:'',search:'',month:null,status:'Todos',onlyDivergences:false};localChart={limit:'20',sort:'desc',search:''};currentDetail={title:'Visão geral',meta:'Filtros limpos. Clique em qualquer gráfico para enxergar as informações relacionadas.'};syncInputs();syncLocalChartControls();paint()};
+['setor','fornecedor','turno','conferente'].forEach(id=>$(id).addEventListener('change',e=>{filters[id]=e.target.value; filters.onlyDivergences=false; resetTablePage(); currentDetail={title:'Filtro aplicado',meta:`${id}: ${e.target.value}`}; paint()})); const mesFilter=$('mes'); if(mesFilter) mesFilter.addEventListener('change',e=>{filters.month=e.target.value==='Todos'?null:e.target.value; filters.onlyDivergences=false; resetTablePage(); currentDetail={title:'Filtro aplicado',meta:`Mês: ${e.target.value}`}; paint()}); const statusFilter=$('status'); if(statusFilter) statusFilter.addEventListener('change',e=>{filters.status=e.target.value; filters.onlyDivergences=false; resetTablePage(); currentDetail={title:'Filtro aplicado',meta:`Status: ${e.target.value}`}; paint()}); const codigoFilter=$('codigoFilter'); if(codigoFilter) codigoFilter.addEventListener('input',e=>{filters.codigo=e.target.value; filters.onlyDivergences=false; resetTablePage(); paint()}); const nfFilter=$('nfFilter'); if(nfFilter) nfFilter.addEventListener('input',e=>{filters.nf=e.target.value; filters.onlyDivergences=false; resetTablePage(); paint()}); $('search').addEventListener('input',e=>{filters.search=e.target.value; filters.onlyDivergences=false; resetTablePage(); paint()}); $('clearBtn').onclick=()=>{resetDashboardControls('Visão geral','Filtros limpos. Clique em qualquer gráfico para enxergar as informações relacionadas.');syncInputs();syncLocalChartControls();syncTableControls(applyFilters().length);paint()};
 function normalizeHeader(s){return normalize(String(s??'')).replace(/[^a-z0-9]/g,'')}
 const EXCEL_ALIASES={
   data:['data','dt','dataconferencia','datadaconferencia','datacontagem','datacadastro','datahora','dia'],
@@ -430,10 +849,61 @@ const EXCEL_ALIASES={
   setor:['setor','local','area','linha','posto','kd','kdecc','localecc','localsetor']
 };
 function findColumnByAlias(headers,field){const aliases=(EXCEL_ALIASES[field]||[]).map(normalizeHeader); const normalized=headers.map(normalizeHeader); for(const alias of aliases){const idx=normalized.findIndex(h=>h===alias); if(idx>=0) return idx;} return -1;}
+function scoreDateColumn(rows,idx){let hits=0,filled=0; const limit=Math.min(rows.length,200); for(let i=0;i<limit;i++){const v=cell(rows[i],idx); if(String(v??'').trim()==='') continue; filled++; if(parseDateValue(v,'DMY')||parseDateValue(v,'MDY')) hits++;} return {hits,filled,ratio:filled?hits/filled:0}}
+function improveDateColumnMap(rows,map){const current=scoreDateColumn(rows,map.data); let best={idx:map.data,...current}; const width=Math.max(...rows.slice(0,50).map(r=>Array.isArray(r)?r.length:0),0); for(let i=0;i<width;i++){const s=scoreDateColumn(rows,i); if(s.hits>best.hits||(s.hits===best.hits&&s.ratio>best.ratio)) best={idx:i,...s};} if(best.idx!==map.data && best.hits>=Math.max(3,current.hits*2) && best.ratio>=0.45){return {...map,data:best.idx}} return map}
 function detectExcelLayout(arr){const fallback={data:0,codigo:1,nf:2,codFornecedor:3,qtdNF:4,qtdFisico:5,divergencia:6,rdl:7,conferente:8,turno:9,fornecedor:10,setor:11}; let best={score:0,headerIndex:0,map:fallback}; const limit=Math.min(arr.length,20); for(let i=0;i<limit;i++){const headers=arr[i]||[]; const map={}; let score=0; Object.keys(EXCEL_ALIASES).forEach(field=>{const idx=findColumnByAlias(headers,field); if(idx>=0){map[field]=idx; score++;}}); const required=['data','codigo','nf','qtdNF','qtdFisico']; const requiredHits=required.filter(k=>map[k]!==undefined).length; if(score>best.score&&requiredHits>=3) best={score,headerIndex:i,map:{...fallback,...map}};} if(best.score>=4) return best; return {score:0,headerIndex:0,map:fallback};}
 function cell(row,idx){return idx===undefined||idx<0?'':row[idx]}
-function normalizeImportedRows(arr){const rawRows=arr.filter(r=>Array.isArray(r)&&r.some(c=>String(c??'').trim()!=='')); const layout=detectExcelLayout(rawRows); const rows=rawRows.slice(layout.score>=4?layout.headerIndex+1:1).filter(r=>r.some(c=>String(c??'').trim()!=='')); const m=layout.map; const dateOrder=detectDateOrder(rows.map(r=>[cell(r,m.data)])); const normalized=rows.map(v=>{const qtdNF=parseNumberSmart(cell(v,m.qtdNF)); const qtdFisico=parseNumberSmart(cell(v,m.qtdFisico)); return {data:parseDateToISO(cell(v,m.data),dateOrder),codigo:String(cell(v,m.codigo)||'').replace(/\./g,'').trim(),codigoOriginal:String(cell(v,m.codigo)||'').trim(),nf:String(cell(v,m.nf)||'').trim(),codFornecedor:String(cell(v,m.codFornecedor)||'').trim(),qtdNF,qtdFisico,divergencia:qtdFisico-qtdNF,rdl:String(cell(v,m.rdl)||'').trim(),conferente:String(cell(v,m.conferente)||'').trim(),turno:String(cell(v,m.turno)||'').trim(),fornecedor:String(cell(v,m.fornecedor)||'').trim(),setor:String(cell(v,m.setor)||'').trim()}}).filter(r=>r.data&&(r.codigo||r.nf||r.fornecedor||r.setor)); return {records:normalized,layout,totalRows:rows.length};}
-$('fileInput').addEventListener('change',async e=>{const file=e.target.files[0]; if(!file) return; const buf=await file.arrayBuffer(); const wb=XLSX.read(buf,{type:'array',cellDates:false}); const sheet=wb.Sheets['PLANILHA FORMULARIO']||wb.Sheets[wb.SheetNames[0]]; const arr=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''}); const result=normalizeImportedRows(arr); records=result.records; dataSourceName=file.name; filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',codigo:'',nf:'',search:'',month:null,status:'Todos',onlyDivergences:false}; localChart={limit:'20',sort:'desc',search:''}; const ignored=Math.max(0,result.totalRows-records.length); currentDetail={title:'Excel importado',meta:`Arquivo ${file.name} carregado com ${records.length} registros válidos. ${ignored?fmt.format(ignored)+' linha(s) vazia(s) ou incompleta(s) foram ignoradas. ':''}Colunas reconhecidas automaticamente, datas exibidas como dd/mm/aaaa e quantidades avaliadas corretamente.`}; syncInputs(); syncLocalChartControls(); render();});
+function parsePossibleDateFromRow(row,preferredIdx,dateOrder){
+  const candidates=[];
+  for(let i=0;i<row.length;i++){
+    const raw=cell(row,i);
+    const iso=parseDateToISO(raw,dateOrder);
+    if(!iso) continue;
+    const year=Number(iso.slice(0,4));
+    let score=0;
+    if(i===preferredIdx) score+=25;
+    if(year>=2000) score+=120;
+    if(year>=2020&&year<=2035) score+=60;
+    if(year<1990) score-=120;
+    if(typeof raw==='number'&&Number(raw)>20000) score+=25;
+    if(/^\d+(?:\.\d+)?$/.test(String(raw).trim())&&Number(raw)>20000) score+=20;
+    if(/[\/\-\.]/.test(String(raw))) score+=8;
+    candidates.push({iso,score,idx:i});
+  }
+  if(!candidates.length) return '';
+  candidates.sort((a,b)=>b.score-a.score||a.idx-b.idx);
+  return candidates[0].iso;
+}
+function normalizeImportedRows(arr){const rawRows=arr.filter(r=>Array.isArray(r)&&r.some(c=>String(c??'').trim()!=='')); const layout=detectExcelLayout(rawRows); const rows=rawRows.slice(layout.score>=4?layout.headerIndex+1:1).filter(r=>r.some(c=>String(c??'').trim()!=='')); const m=improveDateColumnMap(rows,layout.map); const dateOrder=detectDateOrder(rows.map(r=>[cell(r,m.data)])); const normalized=rows.map(v=>{const qtdNF=parseNumberSmart(cell(v,m.qtdNF)); const qtdFisico=parseNumberSmart(cell(v,m.qtdFisico)); return {data:parsePossibleDateFromRow(v,m.data,dateOrder),codigo:String(cell(v,m.codigo)||'').replace(/\./g,'').trim(),codigoOriginal:String(cell(v,m.codigo)||'').trim(),nf:String(cell(v,m.nf)||'').trim(),codFornecedor:String(cell(v,m.codFornecedor)||'').trim(),qtdNF,qtdFisico,divergencia:qtdFisico-qtdNF,rdl:String(cell(v,m.rdl)||'').trim(),conferente:String(cell(v,m.conferente)||'').trim(),turno:String(cell(v,m.turno)||'').trim(),fornecedor:String(cell(v,m.fornecedor)||'').trim(),setor:String(cell(v,m.setor)||'').trim()}}).filter(r=>r.data&&(r.codigo||r.nf||r.fornecedor||r.setor)); return {records:normalized,layout:{...layout,map:m},totalRows:rows.length};}
+$('fileInput').addEventListener('change',async e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  try{
+    const buf=await file.arrayBuffer();
+    const wb=XLSX.read(buf,{type:'array',cellDates:false});
+    const sheet=wb.Sheets['PLANILHA FORMULARIO']||wb.Sheets[wb.SheetNames[0]];
+    const arr=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''});
+    const result=normalizeImportedRows(arr);
+    const mode=selectedImportMode();
+    const primeiraImportacao=String(dataSourceName||'').toLowerCase()==='base embutida'||String(dataSourceName||'').toLowerCase()==='sem dados';
+    const baseParaComparar=(primeiraImportacao&&mode!=='replaceAll')?[]:records;
+    const merge=mergeImportedRecords(baseParaComparar,result.records,mode);
+    records=merge.records;
+    kd=buildKdFromRecords(records);
+    dataSourceName=`${file.name} | ${importModeLabel(mode)}`;
+    const ignored=Math.max(0,result.totalRows-result.records.length);
+    resetDashboardControls('Excel importado e dados avaliados',importSummaryText(file.name,result,merge,ignored));
+    syncInputs();
+    syncLocalChartControls();
+    render();
+    showToast(`Importação concluída: ${fmt.format(merge.added)} novo(s), ${fmt.format(merge.replaced)} substituído(s), ${fmt.format(merge.skipped+merge.duplicatesInFile)} repetido(s) excluído(s).`);
+  }catch(err){
+    console.error(err);
+    alert('Não foi possível importar o arquivo. Verifique se a planilha está no formato correto e tente novamente.');
+  }finally{
+    e.target.value='';
+  }
+});
 window.addEventListener('resize',()=>paint()); render();
 </script>
 
