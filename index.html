@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dashboard Spot Check EA211</title>
 <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
 :root{
   --bg:#07111f;--bg2:#0a1728;--panel:#0d1c31;--panel2:#10243d;--panel3:#132b49;
@@ -317,8 +319,72 @@ function importDate(v){if(v instanceof Date&&!isNaN(v)) return parseDateISO(v); 
 function inferSetores(list){const byCombo=new Map(), byCode=new Map(); function add(map,key,setor){if(!key||!setor)return; const c=map.get(key)||{}; c[setor]=(c[setor]||0)+1; map.set(key,c)} list.forEach(r=>{if(r.setor&&r.setor!=='Não informado'){add(byCombo,`${r.codigo}|${r.codFornecedor}`,r.setor); add(byCode,r.codigo,r.setor)}}); function choose(c){if(!c)return''; return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0]||''} list.forEach(r=>{if(!r.setor){const inf=choose(byCombo.get(`${r.codigo}|${r.codFornecedor}`))||choose(byCode.get(r.codigo)); if(inf){r.setor=inf;r.setorInferido=true}else{r.setor='Não informado';r.setorInferido=false}}}); return list}
 function normalizeImportedRows(rows,wb){const raw=rows.filter(r=>Array.isArray(r)&&r.some(c=>String(c??'').trim()!=='')); const layout=detectLayout(raw); const dataRows=raw.slice(layout.head+(layout.score>=5?1:0)); const mp=supplierMapFromWorkbook(wb); const list=dataRows.map((v,idx)=>{const codRaw=String(cell(v,layout.map.codFornecedor)||'').trim(); const sup=resolveSupplierJS(codRaw,mp); const qn=parseNumberSmart(cell(v,layout.map.qtdNF)); const qf=parseNumberSmart(cell(v,layout.map.qtdFisico)); const divInf=parseNumberSmart(cell(v,layout.map.divergenciaInformada)); const divCalc=qf-qn; const fornecedorCell=String(cell(v,layout.map.fornecedor)||'').trim(); return {id:idx+1,data:importDate(cell(v,layout.map.data)),hora:'',codigo:normalizePart(cell(v,layout.map.codigo)),codigoOriginal:String(cell(v,layout.map.codigo)||'').trim(),nf:String(cell(v,layout.map.nf)||'').trim(),fornecimento:String(cell(v,layout.map.fornecimento)||'').trim(),codFornecedor:sup.code||normalizeSupplierCode(codRaw)||codRaw,codFornecedorOriginal:codRaw,codFornecedorResolvido:sup.code,fornecedor:fornecedorCell&&!/^\d+(?:[,.]\d+)?$/.test(fornecedorCell)?fornecedorCell:sup.name,fornecedorResolucao:fornecedorCell&&!/^\d/.test(fornecedorCell)?'planilha':sup.mode,qtdNF:qn,qtdFisico:qf,divergenciaInformada:divInf,divergenciaCalculada:divCalc,divergenciaValor:Math.max(Math.abs(divCalc),Math.abs(divInf)),rdl:String(cell(v,layout.map.rdl)||'').trim(),conferente:String(cell(v,layout.map.conferente)||'').trim(),ajudante:String(cell(v,layout.map.ajudante)||'').trim(),turno:String(cell(v,layout.map.turno)||'').trim(),setor:normalizeSetor(cell(v,layout.map.setor)),setorOriginal:String(cell(v,layout.map.setor)||'').trim(),setorInferido:false};}).filter(r=>r.data&&(r.codigo||r.nf||r.codFornecedor)); return inferSetores(list)}
 function identity(r){return [r.data,r.codigo,r.nf,r.codFornecedor,r.qtdNF,r.qtdFisico].join('|')}
-async function handleFile(e){const file=e.target.files[0]; if(!file)return; if(!window.XLSX){alert('A biblioteca de leitura do Excel não carregou. Conecte à internet e abra o index.html novamente.'); return;} try{const buf=await file.arrayBuffer(); const wb=XLSX.read(buf,{type:'array',cellDates:true}); const sheet=wb.Sheets['Sheet1']||wb.Sheets['PLANILHA FORMULARIO']||wb.Sheets[wb.SheetNames[0]]; const rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''}); const imported=normalizeImportedRows(rows,wb); if($('importMode').value==='merge'){const map=new Map(records.map(r=>[identity(r),r])); imported.forEach(r=>map.set(identity(r),r)); records=[...map.values()];}else{records=imported;} sourceLabel=file.name; filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',ano:'Todos',mes:'Todos',status:'Todos',codigo:'',nf:'',search:''}; resetPage(); currentDetail={title:'Excel importado',meta:`${fmtInt.format(imported.length)} registro(s) válidos lidos. Fornecedores mapeados por código e locais corrigidos.`,html:''}; render(); toast('Importação concluída com fornecedores e locais corrigidos.')}catch(err){console.error(err); alert('Não foi possível importar a planilha. Verifique o arquivo e tente novamente.')} finally{e.target.value=''}}
+async function handleFile(e){const file=e.target.files[0]; if(!file)return; if(!window.XLSX){alert('A biblioteca de leitura do Excel não carregou. Conecte à internet e abra o index.html novamente.'); return;} try{const buf=await file.arrayBuffer(); const wb=XLSX.read(buf,{type:'array',cellDates:true}); const sheet=wb.Sheets['Sheet1']||wb.Sheets['PLANILHA FORMULARIO']||wb.Sheets[wb.SheetNames[0]]; const rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''}); const imported=normalizeImportedRows(rows,wb); if($('importMode').value==='merge'){const map=new Map(records.map(r=>[identity(r),r])); imported.forEach(r=>map.set(identity(r),r)); records=[...map.values()];}else{records=imported;} sourceLabel=file.name; filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',ano:'Todos',mes:'Todos',status:'Todos',codigo:'',nf:'',search:''}; resetPage(); currentDetail={title:'Excel importado',meta:`${fmtInt.format(imported.length)} registro(s) válidos lidos. Fornecedores mapeados por código e locais corrigidos.`,html:''}; render(); salvarNuvem(records); toast('Importação concluída — dados salvos na nuvem.')}catch(err){console.error(err); alert('Não foi possível importar a planilha. Verifique o arquivo e tente novamente.')} finally{e.target.value=''}}
 (function init(){const saved=(()=>{try{return localStorage.getItem('spotcheck-theme')}catch(e){return null}})()||'dark'; setTheme(saved); bind(); render();})();
+
+/* ======================= FIREBASE (nuvem) ======================= */
+/* ⚠️ CONFIG transcrita do seu print. CONFIRA cada valor no Firebase
+   Console — 1 caractere errado (principalmente na apiKey) quebra tudo.
+   O jeito 100% seguro é copiar/colar a config direto do console. */
+const firebaseConfig = {
+  apiKey: "AIzaSyC2YvC4uaCkj9sYTMr0tRBkjXB5AQQnpk4",
+  authDomain: "controle-de-materiais-ebea1.firebaseapp.com",
+  databaseURL: "https://controle-de-materiais-ebea1-default-rtdb.firebaseio.com",
+  projectId: "controle-de-materiais-ebea1",
+  storageBucket: "controle-de-materiais-ebea1.firebasestorage.app",
+  messagingSenderId: "651843652613",
+  appId: "1:651843652613:web:bdb7b9c8f8520af994206c"
+};
+firebase.initializeApp(firebaseConfig);
+const __db = firebase.database();
+const __nuvemRef = __db.ref('spotcheck/records');
+
+let __seedFeito = false;
+let __ultimoSalvoLocal = '';   // usado para evitar re-render redundante no eco do próprio salvamento
+
+// pílula de status no canto inferior direito
+const __pill = document.createElement('div');
+__pill.style.cssText = 'position:fixed;right:14px;bottom:14px;z-index:50;font:600 12px system-ui,Segoe UI,sans-serif;padding:8px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.16);background:rgba(13,28,49,.94);color:#eef6ff;box-shadow:0 8px 24px rgba(0,0,0,.35)';
+document.addEventListener('DOMContentLoaded', ()=>document.body.appendChild(__pill));
+if (document.body) document.body.appendChild(__pill);
+function statusNuvem(estado, texto){
+  const cor = estado==='ok' ? '#5ee2a0' : estado==='erro' ? '#ff5c7a' : '#ffd166';
+  __pill.innerHTML = '<span style="color:'+cor+'">\u25CF</span> ' + texto;
+}
+statusNuvem('...', 'Conectando \u00E0 nuvem\u2026');
+
+// grava o dataset inteiro (substitui) na nuvem
+function salvarNuvem(recs){
+  __ultimoSalvoLocal = JSON.stringify(recs);
+  statusNuvem('...', 'Salvando na nuvem\u2026');
+  __nuvemRef.set(recs)
+    .then(()=> statusNuvem('ok', 'Salvo na nuvem'))
+    .catch(err=>{ statusNuvem('erro', 'Falha ao salvar'); alert('Erro ao salvar na nuvem: ' + err.message); });
+}
+
+// escuta a nuvem em tempo real; se estiver vazia, faz a carga inicial uma única vez
+__nuvemRef.on('value', (snap)=>{
+  const val = snap.val();
+  if (val == null){
+    if (!__seedFeito){
+      __seedFeito = true;
+      statusNuvem('...', 'Enviando carga inicial (4232 registros)\u2026');
+      salvarNuvem(records);
+    }
+    return;
+  }
+  const nuvem = Array.isArray(val) ? val.filter(Boolean) : Object.values(val);
+  __seedFeito = true;
+  if (JSON.stringify(nuvem) === __ultimoSalvoLocal){ statusNuvem('ok', 'Salvo na nuvem'); return; }
+  records = nuvem;
+  if (typeof resetPage === 'function') resetPage();
+  render();
+  statusNuvem('ok', 'Sincronizado (' + nuvem.length + ' registros)');
+}, (err)=>{
+  statusNuvem('erro', 'Sem acesso \u00E0 nuvem');
+  console.error('Firebase:', err);
+  alert('N\u00E3o consegui ler a nuvem: ' + err.message + '\n\nCausa prov\u00E1vel: as Regras do Realtime Database ainda n\u00E3o foram publicadas em modo de teste (Passo 3).');
+});
 </script>
 </body>
 </html>
