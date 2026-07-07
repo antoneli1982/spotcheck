@@ -301,7 +301,7 @@ function sortTable(data){const arr=[...data]; const cmp=(a,b)=>String(a||'').loc
 function renderTable(data){const ordered=sortTable(data); const pages=Math.max(1,Math.ceil(ordered.length/tableView.pageSize)); tableView.page=Math.min(Math.max(1,tableView.page),pages); const start=(tableView.page-1)*tableView.pageSize; const slice=ordered.slice(start,start+tableView.pageSize); $('rows').innerHTML=slice.map(r=>`<tr><td>${formatDateBR(r.data)}</td><td><span class="pill">${esc(r.setor)}${r.setorInferido?' • inferido':''}</span></td><td>${esc(r.fornecedor)}<br><span class="muted">${esc(r.codFornecedorOriginal||r.codFornecedor)}</span></td><td>${esc(r.codigoOriginal||r.codigo)}</td><td>${esc(r.nf)}</td><td>${fmt.format(r.qtdNF)}</td><td>${fmt.format(r.qtdFisico)}</td><td class="${Math.abs(toNum(r.divergenciaCalculada))>0.000001?'danger':'okText'}">${signed(r.divergenciaCalculada)}</td><td class="${Math.abs(toNum(r.divergenciaInformada))>0.000001?'danger':'okText'}">${fmt.format(r.divergenciaInformada)}</td><td>${esc(r.turno)}</td><td>${esc(r.conferente)}</td></tr>`).join('') || '<tr><td colspan="11" class="empty">Nenhum registro encontrado.</td></tr>'; const ini=ordered.length?start+1:0, fim=Math.min(start+slice.length,ordered.length); $('tableInfo').textContent=`Exibindo ${fmtInt.format(ini)} a ${fmtInt.format(fim)} de ${fmtInt.format(ordered.length)} registro(s). Página ${fmtInt.format(tableView.page)} de ${fmtInt.format(pages)}.`; $('pageStatus').textContent=`Página ${fmtInt.format(tableView.page)} de ${fmtInt.format(pages)}`; $('pageStatusBottom').textContent=$('pageStatus').textContent; $('pageJump').value=tableView.page; $('pageJump').max=pages; document.querySelectorAll('[data-page]').forEach(btn=>{const nav=btn.dataset.page; btn.disabled=(nav==='first'||nav==='prev')?tableView.page<=1:tableView.page>=pages;});}
 function paint(){const data=applyFilters(); updateKpis(data); renderKD(data); renderBar('supplierChart',groupBy(data,'fornecedor').slice(0,20),{horizontal:true,left:172,color:'var(--blue)',valueText:d=>`${fmtInt.format(d.value)} (${((d.value/Math.max(data.length,1))*100).toLocaleString('pt-BR',{maximumFractionDigits:1})}%)`,onClick:d=>selectFilter('fornecedor',d.name,`Fornecedor: ${d.name}`,`${fmtInt.format(d.value)} registro(s). Divergências: ${fmtInt.format(d.divergencias)}.`,detailStats(d))}); renderBar('divergenceChart',groupDivergences(data,'fornecedor').slice(0,20),{horizontal:true,left:172,color:'var(--red)',empty:'Nenhuma divergência no filtro atual.',scaleValue:d=>d.divergencias,valueText:d=>`${fmtInt.format(d.divergencias)}`,onClick:selectDivergence}); renderLocal(data); renderAnalysis(data); renderTable(data); paintDetail();}
 function render(){renderFilterOptions(); updateHeader(); paint();}
-function bind(){['setor','fornecedor','turno','conferente','ano','mes','status'].forEach(id=>$(id).addEventListener('change',e=>{filters[id]=e.target.value; resetPage(); currentDetail={title:'Filtro aplicado',meta:`${id}: ${e.target.value}`}; paint()})); ['codigoFilter','nfFilter','search'].forEach(id=>$(id).addEventListener('input',e=>{const key=id==='codigoFilter'?'codigo':id==='nfFilter'?'nf':'search'; filters[key]=e.target.value; resetPage(); paint()})); $('clearBtn').addEventListener('click',()=>{filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',ano:'Todos',mes:'Todos',status:'Todos',codigo:'',nf:'',search:''}; currentDetail={title:'Visão geral',meta:'Filtros limpos. Clique em qualquer gráfico para enxergar os detalhes.',html:''}; resetPage(); render();}); $('deleteBtn').addEventListener('click',()=>{if(confirm('Excluir todas as informações da tela? O arquivo Excel original não será alterado.')){records=[]; sourceLabel='sem dados'; resetPage(); render(); toast('Informações removidas da tela.')}}); $('pdfBtn').addEventListener('click',()=>{document.documentElement.setAttribute('data-theme','light'); setTimeout(()=>window.print(),80)}); $('tableSort').addEventListener('change',e=>{tableView.sort=e.target.value; resetPage(); paint()}); $('pageSize').addEventListener('change',e=>{tableView.pageSize=Number(e.target.value)||20; resetPage(); paint()}); $('pageJump').addEventListener('change',e=>{tableView.page=Number(e.target.value)||1; paint()}); document.querySelectorAll('[data-page]').forEach(btn=>btn.addEventListener('click',()=>{const pages=Math.max(1,Math.ceil(sortTable(applyFilters()).length/tableView.pageSize)); if(btn.dataset.page==='first')tableView.page=1; if(btn.dataset.page==='prev')tableView.page=Math.max(1,tableView.page-1); if(btn.dataset.page==='next')tableView.page=Math.min(pages,tableView.page+1); if(btn.dataset.page==='last')tableView.page=pages; paint();})); ['localChartSearch','localChartSort','localChartLimit'].forEach(id=>$(id).addEventListener(id==='localChartSearch'?'input':'change',e=>{const k=id==='localChartSearch'?'search':id==='localChartSort'?'sort':'limit'; localChart[k]=e.target.value; paint()})); document.querySelectorAll('[data-theme-set]').forEach(btn=>btn.addEventListener('click',()=>setTheme(btn.dataset.themeSet))); $('centralBtn').addEventListener('click',()=>openModal('Central de Dashboards','O arquivo é único e já traz o Excel analisado.',[['Dashboard principal','Use filtros, gráficos clicáveis e tabela paginada.'],['Correção aplicada','Fornecedor não vem mais como número de quantidade. Local não vem mais como Qtd físico.'],['Compartilhar','Para WhatsApp, publique este index.html no Firebase Hosting e envie o link público.']])); $('infoBtn').addEventListener('click',()=>openModal('Informações gerais','Resumo técnico da correção.',[['Divergências','Conta diferença calculada entre Qtd físico e Qtd NF ou valor informado na coluna Quantidade da Divergencia.'],['Fornecedores','Nomes são buscados na aba nome com base no código. Códigos digitados com pequeno erro são corrigidos quando há correspondência segura.'],['Locais','O gráfico por local usa EA211-1 e EA211-2. Registros antigos sem Local são inferidos por peça/fornecedor quando possível.'],['Datas','Datas do Excel são tratadas e exibidas como dd/mm/aaaa.']])); $('modalClose').addEventListener('click',closeModal); $('modalOverlay').addEventListener('click',e=>{if(e.target.id==='modalOverlay')closeModal()}); $('fileInput').addEventListener('change',handleFile); window.addEventListener('resize',()=>paint());}
+function bind(){['setor','fornecedor','turno','conferente','ano','mes','status'].forEach(id=>$(id).addEventListener('change',e=>{filters[id]=e.target.value; resetPage(); currentDetail={title:'Filtro aplicado',meta:`${id}: ${e.target.value}`}; paint()})); ['codigoFilter','nfFilter','search'].forEach(id=>$(id).addEventListener('input',e=>{const key=id==='codigoFilter'?'codigo':id==='nfFilter'?'nf':'search'; filters[key]=e.target.value; resetPage(); paint()})); $('clearBtn').addEventListener('click',()=>{filters={setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',ano:'Todos',mes:'Todos',status:'Todos',codigo:'',nf:'',search:''}; currentDetail={title:'Visão geral',meta:'Filtros limpos. Clique em qualquer gráfico para enxergar os detalhes.',html:''}; resetPage(); render();}); $('deleteBtn').addEventListener('click',()=>{if(confirm('Excluir todas as informações? Isso limpa a base na nuvem para todos que abrirem o painel. O arquivo Excel original não será alterado.')){records=[]; sourceLabel='sem dados'; resetPage(); render(); if(typeof limparNuvem==='function'){limparNuvem();} toast('Informações removidas da tela e da nuvem.')}}); $('pdfBtn').addEventListener('click',()=>{document.documentElement.setAttribute('data-theme','light'); setTimeout(()=>window.print(),80)}); $('tableSort').addEventListener('change',e=>{tableView.sort=e.target.value; resetPage(); paint()}); $('pageSize').addEventListener('change',e=>{tableView.pageSize=Number(e.target.value)||20; resetPage(); paint()}); $('pageJump').addEventListener('change',e=>{tableView.page=Number(e.target.value)||1; paint()}); document.querySelectorAll('[data-page]').forEach(btn=>btn.addEventListener('click',()=>{const pages=Math.max(1,Math.ceil(sortTable(applyFilters()).length/tableView.pageSize)); if(btn.dataset.page==='first')tableView.page=1; if(btn.dataset.page==='prev')tableView.page=Math.max(1,tableView.page-1); if(btn.dataset.page==='next')tableView.page=Math.min(pages,tableView.page+1); if(btn.dataset.page==='last')tableView.page=pages; paint();})); ['localChartSearch','localChartSort','localChartLimit'].forEach(id=>$(id).addEventListener(id==='localChartSearch'?'input':'change',e=>{const k=id==='localChartSearch'?'search':id==='localChartSort'?'sort':'limit'; localChart[k]=e.target.value; paint()})); document.querySelectorAll('[data-theme-set]').forEach(btn=>btn.addEventListener('click',()=>setTheme(btn.dataset.themeSet))); $('centralBtn').addEventListener('click',()=>openModal('Central de Dashboards','O arquivo é único e já traz o Excel analisado.',[['Dashboard principal','Use filtros, gráficos clicáveis e tabela paginada.'],['Correção aplicada','Fornecedor não vem mais como número de quantidade. Local não vem mais como Qtd físico.'],['Compartilhar','Para WhatsApp, publique este index.html no Firebase Hosting e envie o link público.']])); $('infoBtn').addEventListener('click',()=>openModal('Informações gerais','Resumo técnico da correção.',[['Divergências','Conta diferença calculada entre Qtd físico e Qtd NF ou valor informado na coluna Quantidade da Divergencia.'],['Fornecedores','Nomes são buscados na aba nome com base no código. Códigos digitados com pequeno erro são corrigidos quando há correspondência segura.'],['Locais','O gráfico por local usa EA211-1 e EA211-2. Registros antigos sem Local são inferidos por peça/fornecedor quando possível.'],['Datas','Datas do Excel são tratadas e exibidas como dd/mm/aaaa.']])); $('modalClose').addEventListener('click',closeModal); $('modalOverlay').addEventListener('click',e=>{if(e.target.id==='modalOverlay')closeModal()}); $('fileInput').addEventListener('change',handleFile); window.addEventListener('resize',()=>paint());}
 function setTheme(theme){document.documentElement.setAttribute('data-theme',theme); try{localStorage.setItem('spotcheck-theme',theme)}catch(e){} document.querySelectorAll('[data-theme-set]').forEach(btn=>btn.classList.toggle('active',btn.dataset.themeSet===theme));}
 function openModal(title,sub,cards){$('modalTitle').textContent=title;$('modalSub').textContent=sub;$('modalGrid').innerHTML=cards.map(c=>`<div class="modalCard"><b>${esc(c[0])}</b><span>${esc(c[1])}</span></div>`).join('');$('modalOverlay').classList.add('show')}
 function closeModal(){$('modalOverlay').classList.remove('show')}
@@ -339,6 +339,7 @@ firebase.initializeApp(firebaseConfig);
 const __db = firebase.database();
 const __nuvemRef = __db.ref('spotcheck/records');
 
+const __flagRef = __db.ref('spotcheck/seeded'); // marca que a base já foi inicializada/limpa de propósito
 let __seedFeito = false;
 let __ultimoSalvoLocal = '';   // usado para evitar re-render redundante no eco do próprio salvamento
 
@@ -357,33 +358,54 @@ statusNuvem('...', 'Conectando \u00E0 nuvem\u2026');
 function salvarNuvem(recs){
   __ultimoSalvoLocal = JSON.stringify(recs);
   statusNuvem('...', 'Salvando na nuvem\u2026');
+  __flagRef.set(true).catch(()=>{});   // garante que a base fica marcada como inicializada
   __nuvemRef.set(recs)
     .then(()=> statusNuvem('ok', 'Salvo na nuvem'))
     .catch(err=>{ statusNuvem('erro', 'Falha ao salvar'); alert('Erro ao salvar na nuvem: ' + err.message); });
 }
 
-// escuta a nuvem em tempo real; se estiver vazia, faz a carga inicial uma única vez
-__nuvemRef.on('value', (snap)=>{
-  const val = snap.val();
-  if (val == null){
-    if (!__seedFeito){
-      __seedFeito = true;
-      statusNuvem('...', 'Enviando carga inicial (4232 registros)\u2026');
-      salvarNuvem(records);
-    }
-    return;
-  }
-  const nuvem = Array.isArray(val) ? val.filter(Boolean) : Object.values(val);
+// apaga de vez os registros da nuvem, mantendo a marca de inicialização (para não voltar a carga inicial)
+function limparNuvem(){
+  __ultimoSalvoLocal = '[]';
   __seedFeito = true;
-  if (JSON.stringify(nuvem) === __ultimoSalvoLocal){ statusNuvem('ok', 'Salvo na nuvem'); return; }
-  records = nuvem;
-  if (typeof resetPage === 'function') resetPage();
-  render();
-  statusNuvem('ok', 'Sincronizado (' + nuvem.length + ' registros)');
-}, (err)=>{
-  statusNuvem('erro', 'Sem acesso \u00E0 nuvem');
-  console.error('Firebase:', err);
-  alert('N\u00E3o consegui ler a nuvem: ' + err.message + '\n\nCausa prov\u00E1vel: as Regras do Realtime Database ainda n\u00E3o foram publicadas em modo de teste (Passo 3).');
+  statusNuvem('...', 'Limpando a nuvem\u2026');
+  __flagRef.set(true).catch(()=>{});   // permanece inicializada -> o listener não re-semeia
+  __nuvemRef.remove()
+    .then(()=> statusNuvem('ok', 'Base limpa na nuvem'))
+    .catch(err=>{ statusNuvem('erro', 'Falha ao limpar'); alert('Erro ao limpar a nuvem: ' + err.message); });
+}
+
+// primeiro descobre se a base já foi inicializada alguma vez; só então liga o listener em tempo real
+__flagRef.once('value').then(s=>{ __seedFeito = (s.val() === true); }).catch(()=>{}).finally(()=>{
+  __nuvemRef.on('value', (snap)=>{
+    const val = snap.val();
+    if (val == null){
+      if (!__seedFeito){
+        // primeira vez de todas: envia a carga inicial embutida
+        __seedFeito = true;
+        statusNuvem('...', 'Enviando carga inicial (4232 registros)\u2026');
+        salvarNuvem(records);
+      } else {
+        // base foi limpa de propósito -> mantém vazio, não recarrega o Excel embutido
+        records = [];
+        if (typeof resetPage === 'function') resetPage();
+        render();
+        statusNuvem('ok', 'Base vazia');
+      }
+      return;
+    }
+    const nuvem = Array.isArray(val) ? val.filter(Boolean) : Object.values(val);
+    __seedFeito = true;
+    if (JSON.stringify(nuvem) === __ultimoSalvoLocal){ statusNuvem('ok', 'Salvo na nuvem'); return; }
+    records = nuvem;
+    if (typeof resetPage === 'function') resetPage();
+    render();
+    statusNuvem('ok', 'Sincronizado (' + nuvem.length + ' registros)');
+  }, (err)=>{
+    statusNuvem('erro', 'Sem acesso \u00E0 nuvem');
+    console.error('Firebase:', err);
+    alert('N\u00E3o consegui ler a nuvem: ' + err.message + '\n\nCausa prov\u00E1vel: as Regras do Realtime Database ainda n\u00E3o foram publicadas em modo de teste (Passo 3).');
+  });
 });
 </script>
 </body>
