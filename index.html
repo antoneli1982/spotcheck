@@ -178,7 +178,16 @@ function __salvarCache(recs){
 function __foiLimpoDeProposito(){ try{ return localStorage.getItem(__CLEARED_KEY) === '1'; }catch(e){ return false; } }
 function __marcarLimpeza(v){ try{ if(v) localStorage.setItem(__CLEARED_KEY,'1'); else localStorage.removeItem(__CLEARED_KEY); }catch(e){} }
 
-let records = __carregarCache(); // começa com a última cópia local (vazia na 1ª vez); a nuvem atualiza em seguida sem deixar a tela em branco
+let records = __carregarCache(); // começa com a última cópia local (vazia na 1ª vez)
+if (!records.length && !__foiLimpoDeProposito()){
+  // Sem cópia local ainda (1º acesso neste navegador/dispositivo) -> usa a carga
+  // embutida no arquivo imediatamente, para o painel (inclusive "Spot check por
+  // local") já nascer com EA211-1/EA211-2 separados em vez de ficar em branco
+  // enquanto espera a nuvem responder (ou falhar).
+  records = INITIAL_RECORDS.map(r=>({...r}));
+  __salvarCache(records);
+}
+// a nuvem (Firebase) atualiza em seguida sem deixar a tela em branco
 let sourceLabel = INITIAL_SUMMARY.fonte || 'Excel embutido';
 let filters = {setor:'Todos',fornecedor:'Todos',turno:'Todos',conferente:'Todos',ano:'Todos',mes:'Todos',status:'Todos',codigo:'',nf:'',search:''};
 let tableView = {page:1,pageSize:20,sort:'dateAsc'};
