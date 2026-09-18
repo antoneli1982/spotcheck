@@ -69,6 +69,7 @@ html[data-theme="light"] .top{background:linear-gradient(135deg,#fff,#eef5fc)}ht
     <select id="importMode" class="selectAction" title="Modo de importação"><option value="replace">Substituir tudo</option><option value="merge">Mesclar sem duplicar</option></select>
     <button class="btn" id="clearBtn" type="button">Limpar filtros</button>
     <button class="btn btnDanger" id="deleteBtn" type="button">Excluir tela</button>
+    <button class="btn btnPrimary" id="cloudPushBtn" type="button" title="Envia os dados que estao na tela para o Firebase, para todo mundo ver">Enviar para a nuvem</button>
     <button class="btn" id="allChartsBtn" type="button">Todos os gráficos em JPEG</button>
     <button class="btn btnPrimary" id="pdfBtn" type="button">PDF global</button>
   </div>
@@ -457,6 +458,7 @@ const __nuvemRef = __db.ref('spotcheck/records');
 
 const __flagRef = __db.ref('spotcheck/seeded'); // marca que a base já foi inicializada/limpa de propósito
 let __seedFeito = false;
+let __restaurando = false;   // evita reenviar em loop
 let __ultimoSalvoLocal = '';   // usado para evitar re-render redundante no eco do próprio salvamento
 
 // pílula de status no canto inferior direito
@@ -519,13 +521,23 @@ __flagRef.once('value').then(s=>{ __seedFeito = (s.val() === true); }).catch(()=
         render();
         statusNuvem('ok', 'Base vazia');
       } else {
-        // vazio inesperado (provável oscilação ou regra expirada) -> preserva a cópia local
+        // Vazio inesperado: a nuvem existe e responde, mas 'spotcheck/records' sumiu.
+        // Em vez de ficar so no local, REPUBLICA automaticamente o que temos aqui.
         const backup = __carregarCache();
-        if (backup.length){
-          records = backup;
+        const fonte = backup.length ? backup : INITIAL_RECORDS.map(r=>({...r}));
+        if (fonte.length && !__restaurando){
+          __restaurando = true;
+          records = fonte;
           if (typeof resetPage === 'function') resetPage();
           render();
-          statusNuvem('erro', 'Nuvem vazia agora \u2014 exibindo c\u00F3pia local (' + backup.length + ')');
+          statusNuvem('...', 'Nuvem vazia \u2014 reenviando ' + fonte.length + ' registros\u2026');
+          salvarNuvem(records);
+          setTimeout(()=>{ __restaurando = false; }, 8000);
+        } else if (fonte.length){
+          records = fonte;
+          if (typeof resetPage === 'function') resetPage();
+          render();
+          statusNuvem('erro', 'Nuvem vazia agora \u2014 exibindo c\u00F3pia local (' + fonte.length + ')');
         } else {
           statusNuvem('erro', 'Nuvem sem dados no momento');
         }
@@ -557,6 +569,29 @@ __flagRef.once('value').then(s=>{ __seedFeito = (s.val() === true); }).catch(()=
     }
   });
 });
+
+/* ===== Envio manual para a nuvem =====
+   Usa o que estiver na tela agora e publica em spotcheck/records para todos. */
+function enviarParaNuvem(){
+  if (!records || !records.length){
+    alert('Nao ha registros na tela para enviar. Importe o Excel primeiro.');
+    return;
+  }
+  if (!confirm('Enviar ' + records.length + ' registro(s) para a nuvem? Isso substitui o que estiver la e todos passam a ver estes dados.')) return;
+  __restaurando = true;
+  __seedFeito = true;
+  salvarNuvem(records);
+  setTimeout(()=>{ __restaurando = false; }, 8000);
+}
+function __ligarBotaoNuvem(){
+  const b = document.getElementById('cloudPushBtn');
+  if (b && !b.dataset.ligado){ b.dataset.ligado = '1'; b.addEventListener('click', enviarParaNuvem); }
+}
+__ligarBotaoNuvem();
+document.addEventListener('DOMContentLoaded', __ligarBotaoNuvem);
+__pill.style.cursor = 'pointer';
+__pill.title = 'Clique para reenviar os dados da tela para a nuvem';
+__pill.addEventListener('click', enviarParaNuvem);
 </script>
 </body>
 </html>
